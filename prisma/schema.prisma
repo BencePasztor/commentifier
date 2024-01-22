@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  email     String    @unique
+  username  String    @unique
+  password  String
+  posts     Post[]
+  comment   Comment[]
+  upvote    Upvote[]
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  sourceUrl String    @unique
+  user      User      @relation(fields: [createdBy], references: [id])
+  createdAt DateTime  @default(now())
+  createdBy Int
+  comment   Comment[]
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  content   String    @db.Text
+  post      Post      @relation(fields: [postId], references: [id])
+  postId    Int
+  parentId  Int?
+  parent    Comment?  @relation("CommentReply", fields: [parentId], references: [id])
+  replies   Comment[] @relation("CommentReply")
+  user      User      @relation(fields: [createdBy], references: [id])
+  createdAt DateTime  @default(now())
+  createdBy Int
+  upvote    Upvote[]
+}
+
+model Upvote {
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  comment   Comment  @relation(fields: [commentId], references: [id])
+  commentId Int
+  createdAt DateTime @default(now())
+
+  @@id([userId, commentId])
+}
+
+// TODO: Cascade??
