@@ -3,15 +3,16 @@ import { createCommentSchemaValidator } from "@/schemas/commentSchema"
 import prisma from "@/lib/db"
 import { NotFoundError } from "@/utils/errors"
 import { StatusCodes } from "http-status-codes"
+import { COMMENT_FIELDS } from "@/constants/comment"
 
 export const getCommentsByPostId = async (req: Request, res: Response) => {
     //Check if the post exists
     const postExists = !!await prisma.post.findUnique({
+        select: {
+            id: true,
+        },
         where: {
             id: parseInt(req.params.postId)
-        },
-        include: {
-            comment: true
         }
     })
 
@@ -24,22 +25,7 @@ export const getCommentsByPostId = async (req: Request, res: Response) => {
         where: {
             postId: parseInt(req.params.postId),
         },
-        select: {
-            id: true,
-            content: true,
-            createdAt: true,
-            user: {
-                select: {
-                    id: true,
-                    username: true
-                }
-            },
-            _count: {
-                select: {
-                    replies: true
-                }
-            }
-        },
+        select: COMMENT_FIELDS
     })
 
     return res.status(StatusCodes.OK).json({ data: comments })
@@ -51,6 +37,9 @@ export const createComment = async (req: Request, res: Response) => {
 
     //Check if the post exists
     const postExists = !!await prisma.post.findFirst({
+        select: {
+            id: true
+        },
         where: {
             id: parseInt(req.params.postId)
         }
@@ -67,11 +56,7 @@ export const createComment = async (req: Request, res: Response) => {
             content: validatedData.content,
             createdBy: req.user!.userId
         },
-        select: {
-            id: true,
-            parentId: true,
-            content: true
-        }
+        select: COMMENT_FIELDS
     })
 
     return res.status(StatusCodes.CREATED).json({ data: comment })
@@ -80,11 +65,11 @@ export const createComment = async (req: Request, res: Response) => {
 export const getReplies = async (req: Request, res: Response) => {
     //Check if the comment exists
     const commentExists = !!await prisma.comment.findFirst({
-        where: {
-            id: parseInt(req.params.commentId)
-        },
         select: {
             id: true
+        },
+        where: {
+            id: parseInt(req.params.commentId)
         }
     })
 
@@ -97,22 +82,7 @@ export const getReplies = async (req: Request, res: Response) => {
         where: {
             parentId: parseInt(req.params.commentId),
         },
-        select: {
-            id: true,
-            content: true,
-            createdAt: true,
-            user: {
-                select: {
-                    id: true,
-                    username: true
-                }
-            },
-            _count: {
-                select: {
-                    replies: true
-                }
-            }
-        },
+        select: COMMENT_FIELDS
     })
 
     return res.status(StatusCodes.OK).json({ data: replies })
@@ -124,12 +94,12 @@ export const createReply = async (req: Request, res: Response) => {
 
     //Check if the comment exists
     const commentExists = await prisma.comment.findFirst({
-        where: {
-            id: parseInt(req.params.commentId)
-        },
         select: {
             id: true,
             postId: true
+        },
+        where: {
+            id: parseInt(req.params.commentId)
         }
     })
 
@@ -145,18 +115,7 @@ export const createReply = async (req: Request, res: Response) => {
             content: validatedData.content,
             createdBy: req.user!.userId
         },
-        select: {
-            id: true,
-            parentId: true,
-            content: true,
-            createdAt: true,
-            user: {
-                select: {
-                    id: true,
-                    username: true
-                }
-            }
-        }
+        select: COMMENT_FIELDS
     })
 
     return res.status(StatusCodes.CREATED).json({ data: comment })

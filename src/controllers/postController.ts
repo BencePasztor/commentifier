@@ -3,6 +3,8 @@ import { createPostSchemaValidator } from "@/schemas/postSchema"
 import prisma from "@/lib/db"
 import { BadRequestError, NotFoundError } from "@/utils/errors"
 import { StatusCodes } from "http-status-codes"
+import { COMMENT_FIELDS } from "@/constants/comment"
+import { POSTS_PER_PAGE } from "@/constants/post"
 
 export const createPost = async (req: Request, res: Response) => {
     //Validate Data
@@ -10,6 +12,9 @@ export const createPost = async (req: Request, res: Response) => {
 
     //Check the uniqueness of the sourceUrl
     const postExists = !!await prisma.post.findFirst({
+        select: {
+            id: true
+        },
         where: {
             sourceUrl: validatedData.sourceUrl
         },
@@ -38,7 +43,9 @@ export const getPostById = async (req: Request, res: Response) => {
             id: parseInt(req.params.postId)
         },
         include: {
-            comment: true
+            comment: {
+                select: COMMENT_FIELDS
+            }
         }
     })
 
@@ -47,4 +54,26 @@ export const getPostById = async (req: Request, res: Response) => {
     }
 
     return res.status(StatusCodes.OK).json({ data: post })
+}
+
+export const getPosts = async (req: Request, res: Response) => {
+
+    const cursorParam = req.query.cursor
+
+    if (cursorParam && (typeof cursorParam !== "string" || isNaN(parseInt(cursorParam)))) {
+        throw new BadRequestError('Invalid cursor!')
+    }
+
+    const posts = await prisma.post.findMany({
+        take: POSTS_PER_PAGE + 1, //+1 to get the next cursor
+        orderBy: {
+            createdAt: 'desc'
+        },
+        cursor: cursorParam ? { id: parseInt(cursorParam) } : undefined
+    })
+
+    return res.status(StatusCodes.OK).json({
+        data: posts.slice(0, POSTS_PER_PAGE),
+        nextCursor: posts.length > POSTS_PER_PAGE ? posts[posts.length - 1].id : null
+    })
 }

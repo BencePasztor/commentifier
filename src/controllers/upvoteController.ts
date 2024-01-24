@@ -6,6 +6,9 @@ import { StatusCodes } from "http-status-codes"
 export const createUpvote = async (req: Request, res: Response) => {
     //Check if comment exists
     const commentExists = !!await prisma.comment.findUnique({
+        select: {
+            id: true
+        },
         where: {
             id: parseInt(req.params.commentId)
         }
@@ -17,6 +20,10 @@ export const createUpvote = async (req: Request, res: Response) => {
 
     //Check if upvote exists
     const upvoteExists = !!await prisma.upvote.findFirst({
+        select: {
+            commentId: true,
+            userId: true
+        },
         where: {
             userId: req.user!.userId,
             commentId: parseInt(req.params.commentId)
