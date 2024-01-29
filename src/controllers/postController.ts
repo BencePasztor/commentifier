@@ -5,6 +5,7 @@ import { BadRequestError, NotFoundError } from "@/utils/errors"
 import { StatusCodes } from "http-status-codes"
 import { COMMENT_FIELDS } from "@/constants/comment"
 import { POSTS_PER_PAGE } from "@/constants/post"
+import { getMetadataFromUrl } from "@/utils/metadata"
 
 export const createPost = async (req: Request, res: Response) => {
     //Validate Data
@@ -24,11 +25,15 @@ export const createPost = async (req: Request, res: Response) => {
         throw new BadRequestError('A post with this sourceUrl already exists')
     }
 
-    //TODO: Save additional data(title, OG:thumbnail, description, author...etc)
+    //Get metadata
+    const postMetadata = await getMetadataFromUrl(validatedData.sourceUrl)
 
     //Create Post
     const post = await prisma.post.create({
         data: {
+            title: postMetadata.title,
+            description: postMetadata.description,
+            image: postMetadata.image, //TODO: Save resized and converted image instead of storing the url
             sourceUrl: validatedData.sourceUrl,
             createdBy: req.user!.userId
         }
