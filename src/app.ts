@@ -6,7 +6,8 @@ import {
     notFoundMiddleware,
     errorHandlerMiddleware,
     jsonMiddleware,
-    morganMiddleware
+    morganMiddleware,
+    publicMiddleware
 } from "@/middleware"
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(
     corsMiddleware,
     cookieParserMiddleware,
     jsonMiddleware,
+    publicMiddleware,
     router,
     notFoundMiddleware,
     errorHandlerMiddleware

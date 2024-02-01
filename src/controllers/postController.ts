@@ -6,6 +6,8 @@ import { StatusCodes } from "http-status-codes"
 import { COMMENT_FIELDS } from "@/constants/comment"
 import { POSTS_PER_PAGE } from "@/constants/post"
 import { getMetadataFromUrl } from "@/utils/metadata"
+import { savePostImage } from "@/utils/postUtils"
+import { truncate } from "@/utils/common"
 
 export const createPost = async (req: Request, res: Response) => {
     //Validate Data
@@ -28,12 +30,15 @@ export const createPost = async (req: Request, res: Response) => {
     //Get metadata
     const postMetadata = await getMetadataFromUrl(validatedData.sourceUrl)
 
+    //Save post image
+    const postImage = await savePostImage(postMetadata.image)
+
     //Create Post
     const post = await prisma.post.create({
         data: {
-            title: postMetadata.title,
-            description: postMetadata.description,
-            image: postMetadata.image, //TODO: Save resized and converted image instead of storing the url
+            title: truncate(postMetadata.title, 150),
+            description: truncate(postMetadata.description, 300),
+            image: postImage,
             sourceUrl: validatedData.sourceUrl,
             createdBy: req.user!.userId
         }
