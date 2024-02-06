@@ -23,7 +23,7 @@ export const savePostImage = async (imageUrl: string) => {
         //Resize, convert and save image
         await sharp(await imageResponse.arrayBuffer())
             .resize(300, 300)
-            .toFile(path.resolve(__dirname, '..', 'public', 'images', 'posts', generatedFileName))
+            .toFile(path.resolve(__dirname, '..', '..', 'public', 'images', 'posts', generatedFileName))
 
         //Return path to image
         return `/images/posts/${generatedFileName}`
