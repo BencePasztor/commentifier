@@ -1,18 +1,17 @@
 import { Router } from "express"
 import asyncWrapper from "@/utils/asyncWrapper"
-import { createComment, getCommentsByPostId, getReplies, createReply } from "@/controllers/commentController"
+import { getReplies, createReply } from "@/controllers/commentController"
 import { authMiddleware } from "@/middleware"
-import upvoteRoutes from "./upvoteRoutes"
+import { createUpvote, deleteUpvote } from "@/controllers/upvoteController"
 
-const router = Router({ mergeParams: true })
+const router = Router()
 
 //Comments
-router.get('/', asyncWrapper(getCommentsByPostId))
-router.post('/', authMiddleware, asyncWrapper(createComment))
 router.post('/:commentId/replies', authMiddleware, asyncWrapper(createReply))
 router.get('/:commentId/replies', asyncWrapper(getReplies))
 
 //Upvotes
-router.use('/:commentId/upvotes', upvoteRoutes)
+router.post('/:commentId/upvotes', authMiddleware, asyncWrapper(createUpvote))
+router.delete('/:commentId/upvotes', authMiddleware, asyncWrapper(deleteUpvote))
 
 export default router
