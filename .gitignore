@@ -2,5 +2,5 @@ dist
 .env
 node_modules
 
-public/images/posts/*
-!public/images/posts/noimage.webp
+public/images/*/*
+!public/images/*/noimage.webp
