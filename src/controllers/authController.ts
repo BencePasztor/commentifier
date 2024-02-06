@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { authRegisterValidator } from "@/schemas/authSchema"
+import { authRegisterValidator, authPasswordChangeValidator } from "@/schemas/authSchema"
 import prisma from "@/lib/db"
 import { hashPassword, comparePasswords } from "@/utils/password"
 import { createToken } from "@/utils/token"
@@ -49,7 +49,8 @@ export const login = async (req: Request, res: Response) => {
     const user = await prisma.user.findFirst({
         select: {
             id: true,
-            password: true
+            password: true,
+            username: true,
         },
         where: {
             email
@@ -61,7 +62,8 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const token = createToken({
-        userId: user.id
+        userId: user.id,
+        username: user.username
     })
 
     res.cookie('token', token, {
@@ -80,4 +82,38 @@ export const logout = (req: Request, res: Response) => {
     });
 
     return res.status(StatusCodes.OK).json({ message: 'Logout successful' });
+}
+
+export const passwordChange = async (req: Request, res: Response) => {
+    //Validate data
+    const validatedData = authPasswordChangeValidator(req.body)
+
+    //Compare the old passwords
+    const user = await prisma.user.findFirst({
+        select: {
+            password: true,
+        },
+        where: {
+            id: req.user!.userId
+        }
+    })
+
+    if (!user || !await comparePasswords(validatedData.oldPassword, user.password)) {
+        throw new UnauthorizedError('Invalid credentials')
+    }
+
+    // Hash new password
+    const newPassword = await hashPassword(validatedData.newPassword)
+
+    //Update password
+    await prisma.user.update({
+        data: {
+            password: newPassword
+        },
+        where: {
+            id: req.user!.userId
+        }
+    })
+
+    return res.status(StatusCodes.OK).json({ message: 'Password change successful' })
 }

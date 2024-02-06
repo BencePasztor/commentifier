@@ -14,7 +14,10 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     //Validate token
     try {
         const tokenPayload = verifyToken(token)
-        req.user = { userId: tokenPayload.userId }
+        req.user = {
+            username: tokenPayload.username,
+            userId: tokenPayload.userId
+        }
         next()
     } catch (error) {
         console.log(error)
