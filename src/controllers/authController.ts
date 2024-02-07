@@ -122,3 +122,18 @@ export const passwordChange = async (req: Request, res: Response) => {
     .status(StatusCodes.OK)
     .json({ message: 'Password change successful' })
 }
+
+export const getCurrentUser = async (req: Request, res: Response) => {
+  const user = await prisma.user.findUnique({
+    select: {
+      id: true,
+      username: true,
+      avatar: true
+    },
+    where: {
+      id: req.user!.userId
+    }
+  })
+
+  return res.status(StatusCodes.OK).json({ data: user })
+}

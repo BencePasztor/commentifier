@@ -4,7 +4,8 @@ import {
   register,
   login,
   logout,
-  passwordChange
+  passwordChange,
+  getCurrentUser
 } from '@/controllers/authController'
 import { authMiddleware } from '@/middleware'
 
@@ -14,5 +15,6 @@ router.post('/register', asyncWrapper(register))
 router.post('/login', asyncWrapper(login))
 router.delete('/logout', logout)
 router.patch('/password', authMiddleware, asyncWrapper(passwordChange))
+router.get('/me', authMiddleware, asyncWrapper(getCurrentUser))
 
 export default router

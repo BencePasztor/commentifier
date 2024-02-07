@@ -24,7 +24,6 @@ export const authMiddleware = (
     }
     next()
   } catch (error) {
-    console.log(error)
     throw new UnauthorizedError('Invalid token!')
   }
 }
