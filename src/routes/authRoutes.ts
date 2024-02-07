@@ -4,7 +4,8 @@ import {
   register,
   login,
   logout,
-  passwordChange
+  passwordChange,
+  getCurrentUser
 } from '@/controllers/authController'
 import {
   authMiddleware,
@@ -24,5 +25,6 @@ router.patch(
   passwordChangeLimiter,
   asyncWrapper(passwordChange)
 )
+router.get('/me', authMiddleware, asyncWrapper(getCurrentUser))
 
 export default router
