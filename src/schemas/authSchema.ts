@@ -1,17 +1,25 @@
-import { z } from "zod"
-import zodValidatorFactory from "@/utils/zodValidatorFactory"
+import { z } from 'zod'
+import zodValidatorFactory from '@/utils/zodValidatorFactory'
 
 export const authRegisterSchema = z.object({
-    username: z.string().trim().min(1, "Name must be at least 1 character long"),
-    password: z.string().min(8, 'Password must be at least 8 characters long').max(50, 'Password must be at most 50 characters long'),
-    email: z.string().trim().email()
+  username: z.string().trim().min(1, 'Name must be at least 1 character long'),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters long')
+    .max(50, 'Password must be at most 50 characters long'),
+  email: z.string().trim().email()
 })
 
 export const authRegisterValidator = zodValidatorFactory(authRegisterSchema)
 
 export const authPasswordChangeSchema = z.object({
-    oldPassword: z.string(),
-    newPassword: z.string().min(8, 'Password must be at least 8 characters long').max(50, 'Password must be at most 50 characters long'),
+  oldPassword: z.string(),
+  newPassword: z
+    .string()
+    .min(8, 'Password must be at least 8 characters long')
+    .max(50, 'Password must be at most 50 characters long')
 })
 
-export const authPasswordChangeValidator = zodValidatorFactory(authPasswordChangeSchema)
+export const authPasswordChangeValidator = zodValidatorFactory(
+  authPasswordChangeSchema
+)

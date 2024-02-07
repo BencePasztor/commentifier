@@ -1,8 +1,9 @@
-import { z } from "zod"
-import zodValidatorFactory from "@/utils/zodValidatorFactory"
+import { z } from 'zod'
+import zodValidatorFactory from '@/utils/zodValidatorFactory'
 
 export const createCommentSchema = z.object({
-    content: z.string().trim()
+  content: z.string().trim()
 })
 
-export const createCommentSchemaValidator = zodValidatorFactory(createCommentSchema)
+export const createCommentSchemaValidator =
+  zodValidatorFactory(createCommentSchema)

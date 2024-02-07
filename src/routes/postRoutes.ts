@@ -1,8 +1,11 @@
-import { Router } from "express"
-import asyncWrapper from "@/utils/asyncWrapper"
-import { getPostById, getPosts, createPost } from "@/controllers/postController"
-import { createComment, getCommentsByPostId } from "@/controllers/commentController"
-import { authMiddleware } from "@/middleware"
+import { Router } from 'express'
+import asyncWrapper from '@/utils/asyncWrapper'
+import { getPostById, getPosts, createPost } from '@/controllers/postController'
+import {
+  createComment,
+  getCommentsByPostId
+} from '@/controllers/commentController'
+import { authMiddleware } from '@/middleware'
 
 const router = Router()
 

@@ -1,10 +1,10 @@
-import { Request } from 'express';
+import { Request } from 'express'
 
 declare module 'express' {
-    interface Request {
-        user?: {
-            userId: number,
-            username: string
-        };
+  interface Request {
+    user?: {
+      userId: number
+      username: string
     }
+  }
 }

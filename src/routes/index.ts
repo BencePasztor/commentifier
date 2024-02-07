@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import userRoutes from "./userRoutes"
-import authRoutes from "./authRoutes"
-import postRoutes from "./postRoutes"
-import commentRoutes from "./commentRoutes"
+import userRoutes from './userRoutes'
+import authRoutes from './authRoutes'
+import postRoutes from './postRoutes'
+import commentRoutes from './commentRoutes'
 
 const router = Router()
 

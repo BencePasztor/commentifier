@@ -1,7 +1,12 @@
-import { Router } from "express";
-import asyncWrapper from "@/utils/asyncWrapper";
-import { register, login, logout,passwordChange } from "@/controllers/authController";
-import { authMiddleware } from "@/middleware";
+import { Router } from 'express'
+import asyncWrapper from '@/utils/asyncWrapper'
+import {
+  register,
+  login,
+  logout,
+  passwordChange
+} from '@/controllers/authController'
+import { authMiddleware } from '@/middleware'
 
 const router = Router()
 
