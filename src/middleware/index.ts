@@ -7,3 +7,10 @@ export { notFoundMiddleware } from './notFoundMiddleware'
 export { authMiddleware } from './authMiddleware'
 export { publicMiddleware } from './publicMiddleware'
 export { multerProfileMiddleware } from './multerProfileMiddleware'
+export {
+  loginRateLimiter,
+  passwordChangeLimiter,
+  registerRateLimiter
+} from './authRateLimiterMiddleware'
+export { commentRateLimiter } from './commentRateLimiterMiddleware'
+export { postRateLimiter } from './postRateLimiterMiddleware'

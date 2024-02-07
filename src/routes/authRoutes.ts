@@ -4,17 +4,25 @@ import {
   register,
   login,
   logout,
-  passwordChange,
-  getCurrentUser
+  passwordChange
 } from '@/controllers/authController'
-import { authMiddleware } from '@/middleware'
+import {
+  authMiddleware,
+  registerRateLimiter,
+  loginRateLimiter,
+  passwordChangeLimiter
+} from '@/middleware'
 
 const router = Router()
 
-router.post('/register', asyncWrapper(register))
-router.post('/login', asyncWrapper(login))
+router.post('/register', registerRateLimiter, asyncWrapper(register))
+router.post('/login', loginRateLimiter, asyncWrapper(login))
 router.delete('/logout', logout)
-router.patch('/password', authMiddleware, asyncWrapper(passwordChange))
-router.get('/me', authMiddleware, asyncWrapper(getCurrentUser))
+router.patch(
+  '/password',
+  authMiddleware,
+  passwordChangeLimiter,
+  asyncWrapper(passwordChange)
+)
 
 export default router
