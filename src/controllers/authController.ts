@@ -28,7 +28,7 @@ export const register = async (req: Request, res: Response) => {
     }
   }
 
-  // Hash Password
+  //Hash Password
   validatedData.password = await hashPassword(validatedData.password)
 
   //Create User
@@ -105,7 +105,7 @@ export const passwordChange = async (req: Request, res: Response) => {
     throw new UnauthorizedError('Invalid credentials')
   }
 
-  // Hash new password
+  //Hash new password
   const newPassword = await hashPassword(validatedData.newPassword)
 
   //Update password

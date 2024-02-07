@@ -7,7 +7,7 @@ export const authMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  // Get the token from the cookies
+  //Get the token from the cookies
   const { token } = req.cookies
 
   //If the token is missing throw an error
