@@ -8,7 +8,6 @@ export const loginRateLimiter = rateLimit({
   legacyHeaders: false,
   skipSuccessfulRequests: true,
   message: {
-    statusCode: StatusCodes.TOO_MANY_REQUESTS,
     message: 'Too many login attempts, please try again later.'
   }
 })
@@ -20,7 +19,6 @@ export const registerRateLimiter = rateLimit({
   legacyHeaders: false,
   skipFailedRequests: true,
   message: {
-    statusCode: StatusCodes.TOO_MANY_REQUESTS,
     message: 'Only 2 accounts can be created every hour.'
   }
 })
@@ -32,7 +30,6 @@ export const passwordChangeLimiter = rateLimit({
   legacyHeaders: false,
   skipFailedRequests: true,
   message: {
-    statusCode: StatusCodes.TOO_MANY_REQUESTS,
     message: 'You can only change your password 2 times per hour.'
   }
 })

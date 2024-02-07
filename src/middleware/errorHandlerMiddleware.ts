@@ -3,7 +3,6 @@ import { StatusCodes } from 'http-status-codes'
 import { BadRequestError } from '@/utils/errors'
 
 interface ErrorData {
-  statusCode: number
   message: string
   errors?: any
 }
@@ -15,7 +14,6 @@ export const errorHandlerMiddleware: ErrorRequestHandler = (
   next
 ) => {
   const errorData: ErrorData = {
-    statusCode: err.statusCode ?? StatusCodes.INTERNAL_SERVER_ERROR,
     message: err.message ?? 'Internal Server Error'
   }
 
@@ -23,5 +21,5 @@ export const errorHandlerMiddleware: ErrorRequestHandler = (
     errorData.errors = err.errors
   }
 
-  res.status(errorData.statusCode).json(errorData)
+  res.status(err.statusCode ?? StatusCodes.INTERNAL_SERVER_ERROR).json(errorData)
 }

@@ -8,7 +8,6 @@ export const postRateLimiter = rateLimit({
   legacyHeaders: false,
   skipSuccessfulRequests: true,
   message: {
-    statusCode: StatusCodes.TOO_MANY_REQUESTS,
     message: 'You can only create 5 posts every hour.'
   }
 })

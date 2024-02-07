@@ -8,7 +8,6 @@ export const commentRateLimiter = rateLimit({
   legacyHeaders: false,
   skipSuccessfulRequests: true,
   message: {
-    statusCode: StatusCodes.TOO_MANY_REQUESTS,
     message: 'Too many comments, please try again later.'
   }
 })
