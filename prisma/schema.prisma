@@ -24,7 +24,7 @@ model Post {
   sourceUrl   String    @db.VarChar(2083)
   title       String    @db.VarChar(150)
   description String    @db.VarChar(300)
-  image       String
+  image       String?
   user        User      @relation(fields: [createdBy], references: [id])
   createdAt   DateTime  @default(now())
   createdBy   Int

@@ -4,7 +4,7 @@ import path from 'path'
 export const savePostImage = async (imageUrl: string) => {
   //Check the validity of the imageUrl
   if (!imageUrl) {
-    return '/images/post/noimage.webp'
+    return null
   }
 
   try {
@@ -35,9 +35,9 @@ export const savePostImage = async (imageUrl: string) => {
         )
       )
 
-    //Return path to image
-    return `/images/posts/${generatedFileName}`
+    //Return the filename
+    return generatedFileName
   } catch (error) {
-    return '/images/post/noimage.webp'
+    return null
   }
 }
