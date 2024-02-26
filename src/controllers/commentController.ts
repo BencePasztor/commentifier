@@ -3,7 +3,7 @@ import { createCommentSchemaValidator } from '@/schemas/commentSchema'
 import prisma from '@/lib/db'
 import { NotFoundError } from '@/utils/errors'
 import { StatusCodes } from 'http-status-codes'
-import { COMMENT_FIELDS } from '@/constants/comment'
+import { COMMENT_FIELDS } from '@/config/comment'
 
 export const getCommentsByPostId = async (req: Request, res: Response) => {
   //Check if the post exists
