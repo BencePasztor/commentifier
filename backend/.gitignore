@@ -1,0 +1,6 @@
+dist
+.env
+node_modules
+
+public/images/*/*
+!public/images/*/noimage.webp
