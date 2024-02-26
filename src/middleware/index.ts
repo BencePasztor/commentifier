@@ -14,3 +14,4 @@ export {
 } from './authRateLimiterMiddleware'
 export { commentRateLimiter } from './commentRateLimiterMiddleware'
 export { postRateLimiter } from './postRateLimiterMiddleware'
+export { helmetMiddleware } from './helmetMiddleware'
