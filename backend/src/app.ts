@@ -17,9 +17,13 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morganMiddleware)
 }
 
+app.use(helmetMiddleware, corsMiddleware)
+
+app.get('/', (req, res) => {
+  res.send('It works! ^.^')
+})
+
 app.use(
-  helmetMiddleware,
-  corsMiddleware,
   cookieParserMiddleware,
   jsonMiddleware,
   publicMiddleware,
@@ -27,9 +31,5 @@ app.use(
   notFoundMiddleware,
   errorHandlerMiddleware
 )
-
-app.get('/', (req, res) => {
-  res.send('It works! ^.^')
-})
 
 export default app
