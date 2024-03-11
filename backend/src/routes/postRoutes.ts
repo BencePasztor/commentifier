@@ -13,12 +13,12 @@ import {
 
 const router = Router()
 
-//Posts
+// Posts
 router.get('/', asyncWrapper(getPosts))
 router.get('/:postId', asyncWrapper(getPostById))
 router.post('/', authMiddleware, postRateLimiter, asyncWrapper(createPost))
 
-//Comments
+// Comments
 router.get('/:postId/comments', asyncWrapper(getCommentsByPostId))
 router.post(
   '/:postId/comments',

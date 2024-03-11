@@ -4,10 +4,10 @@ import fs from 'fs/promises'
 
 export const saveProfileImage = async (imageBuffer: Buffer) => {
   try {
-    //Generate file name
+    // Generate file name
     const generatedFileName = crypto.randomUUID() + '.webp'
 
-    //Resize, convert and save image
+    // Resize, convert and save image
     await sharp(imageBuffer)
       .resize(100, 100)
       .toFile(
@@ -22,7 +22,7 @@ export const saveProfileImage = async (imageBuffer: Buffer) => {
         )
       )
 
-    //Return the filename
+    // Return the filename
     return generatedFileName
   } catch (error) {
     return null
@@ -42,7 +42,7 @@ export const deleteProfileImage = async (imageFileName: string) => {
       imageFileName
     )
 
-    //Delete image
+    // Delete image
     await fs.unlink(imagePath)
 
     return true

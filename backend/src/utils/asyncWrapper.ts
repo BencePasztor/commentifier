@@ -1,4 +1,9 @@
-import { Request, RequestHandler, Response, NextFunction } from 'express'
+import {
+  type Request,
+  type RequestHandler,
+  type Response,
+  type NextFunction
+} from 'express'
 
 const asyncWrapper = (handler: RequestHandler): RequestHandler => {
   return async (req: Request, res: Response, next: NextFunction) => {

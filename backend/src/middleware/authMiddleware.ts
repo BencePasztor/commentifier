@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { verifyToken } from '@/utils/token'
 import { UnauthorizedError } from '@/utils/errors'
 
@@ -7,15 +7,15 @@ export const authMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  //Get the token from the cookies
+  // Get the token from the cookies
   const { token } = req.cookies
 
-  //If the token is missing throw an error
+  // If the token is missing throw an error
   if (!token) {
     throw new UnauthorizedError('Missing token! User is not authenticated.')
   }
 
-  //Validate token
+  // Validate token
   try {
     const tokenPayload = verifyToken(token)
     req.user = {

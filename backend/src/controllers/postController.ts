@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import { createPostSchemaValidator } from '@/schemas/postSchema'
 import prisma from '@/lib/db'
 import { BadRequestError, NotFoundError } from '@/utils/errors'
@@ -10,10 +10,10 @@ import { savePostImage } from '@/utils/postUtils'
 import { truncate } from '@/utils/common'
 
 export const createPost = async (req: Request, res: Response) => {
-  //Validate Data
+  // Validate Data
   const validatedData = createPostSchemaValidator(req.body)
 
-  //Check the uniqueness of the sourceUrl
+  // Check the uniqueness of the sourceUrl
   const postExists = !!(await prisma.post.findFirst({
     select: {
       id: true
@@ -27,13 +27,13 @@ export const createPost = async (req: Request, res: Response) => {
     throw new BadRequestError('A post with this sourceUrl already exists')
   }
 
-  //Get metadata
+  // Get metadata
   const postMetadata = await getMetadataFromUrl(validatedData.sourceUrl)
 
-  //Save post image
+  // Save post image
   const postImage = await savePostImage(postMetadata.image)
 
-  //Create Post
+  // Create Post
   const post = await prisma.post.create({
     data: {
       title: truncate(postMetadata.title, 150),
@@ -77,7 +77,7 @@ export const getPosts = async (req: Request, res: Response) => {
   }
 
   const posts = await prisma.post.findMany({
-    take: POSTS_PER_PAGE + 1, //+1 to get the next cursor
+    take: POSTS_PER_PAGE + 1, // +1 to get the next cursor
     orderBy: {
       createdAt: 'desc'
     },

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import {
   authRegisterValidator,
   authPasswordChangeValidator
@@ -10,10 +10,10 @@ import { StatusCodes } from 'http-status-codes'
 import { BadRequestError, UnauthorizedError } from '@/utils/errors'
 
 export const register = async (req: Request, res: Response) => {
-  //Validate Data
+  // Validate Data
   const validatedData = authRegisterValidator(req.body)
 
-  //Check the uniqueness of the email and username fields
+  // Check the uniqueness of the email and username fields
   const userExists = await prisma.user.findFirst({
     where: {
       OR: [{ email: validatedData.email }, { username: validatedData.username }]
@@ -28,10 +28,10 @@ export const register = async (req: Request, res: Response) => {
     }
   }
 
-  //Hash Password
+  // Hash Password
   validatedData.password = await hashPassword(validatedData.password)
 
-  //Create User
+  // Create User
   const user = await prisma.user.create({
     data: validatedData,
     select: {
@@ -85,10 +85,10 @@ export const logout = (req: Request, res: Response) => {
 }
 
 export const passwordChange = async (req: Request, res: Response) => {
-  //Validate data
+  // Validate data
   const validatedData = authPasswordChangeValidator(req.body)
 
-  //Compare the old passwords
+  // Compare the old passwords
   const user = await prisma.user.findFirst({
     select: {
       password: true
@@ -105,10 +105,10 @@ export const passwordChange = async (req: Request, res: Response) => {
     throw new UnauthorizedError('Invalid credentials')
   }
 
-  //Hash new password
+  // Hash new password
   const newPassword = await hashPassword(validatedData.newPassword)
 
-  //Update password
+  // Update password
   await prisma.user.update({
     data: {
       password: newPassword

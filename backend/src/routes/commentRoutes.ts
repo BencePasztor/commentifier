@@ -6,7 +6,7 @@ import { createUpvote, deleteUpvote } from '@/controllers/upvoteController'
 
 const router = Router()
 
-//Comments
+// Comments
 router.post(
   '/:commentId/replies',
   authMiddleware,
@@ -15,7 +15,7 @@ router.post(
 )
 router.get('/:commentId/replies', asyncWrapper(getReplies))
 
-//Upvotes
+// Upvotes
 router.post('/:commentId/upvotes', authMiddleware, asyncWrapper(createUpvote))
 router.delete('/:commentId/upvotes', authMiddleware, asyncWrapper(deleteUpvote))
 

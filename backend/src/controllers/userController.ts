@@ -1,11 +1,11 @@
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import prisma from '@/lib/db'
 import { StatusCodes } from 'http-status-codes'
 import { saveProfileImage, deleteProfileImage } from '@/utils/userUtils'
 import { NotFoundError } from '@/utils/errors'
 
 export const updateProfile = async (req: Request, res: Response) => {
-  //Get previous avatar
+  // Get previous avatar
   const user = await prisma.user.findUnique({
     select: {
       avatar: true
@@ -19,18 +19,18 @@ export const updateProfile = async (req: Request, res: Response) => {
     throw new NotFoundError('User not found')
   }
 
-  //Save Profile Image
+  // Save Profile Image
   let avatar = null
   if (req.file?.buffer) {
     avatar = await saveProfileImage(req.file.buffer)
   }
 
-  //Delete previous avatar
+  // Delete previous avatar
   if (avatar && user.avatar) {
     deleteProfileImage(user.avatar)
   }
 
-  //Update Profile
+  // Update Profile
   await prisma.user.update({
     data: {
       avatar

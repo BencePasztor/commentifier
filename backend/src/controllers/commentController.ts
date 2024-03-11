@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import { createCommentSchemaValidator } from '@/schemas/commentSchema'
 import prisma from '@/lib/db'
 import { NotFoundError } from '@/utils/errors'
@@ -6,7 +6,7 @@ import { StatusCodes } from 'http-status-codes'
 import { COMMENT_FIELDS } from '@/config/comment'
 
 export const getCommentsByPostId = async (req: Request, res: Response) => {
-  //Check if the post exists
+  // Check if the post exists
   const postExists = !!(await prisma.post.findUnique({
     select: {
       id: true
@@ -20,7 +20,7 @@ export const getCommentsByPostId = async (req: Request, res: Response) => {
     throw new NotFoundError('Post not found')
   }
 
-  //Collect comments
+  // Collect comments
   const comments = await prisma.comment.findMany({
     where: {
       postId: parseInt(req.params.postId)
@@ -32,10 +32,10 @@ export const getCommentsByPostId = async (req: Request, res: Response) => {
 }
 
 export const createComment = async (req: Request, res: Response) => {
-  //Validate Data
+  // Validate Data
   const validatedData = createCommentSchemaValidator(req.body)
 
-  //Check if the post exists
+  // Check if the post exists
   const postExists = !!(await prisma.post.findFirst({
     select: {
       id: true
@@ -49,7 +49,7 @@ export const createComment = async (req: Request, res: Response) => {
     throw new NotFoundError('The post with the given id was not found')
   }
 
-  //Create comment
+  // Create comment
   const comment = await prisma.comment.create({
     data: {
       postId: parseInt(req.params.postId),
@@ -63,7 +63,7 @@ export const createComment = async (req: Request, res: Response) => {
 }
 
 export const getReplies = async (req: Request, res: Response) => {
-  //Check if the comment exists
+  // Check if the comment exists
   const commentExists = !!(await prisma.comment.findFirst({
     select: {
       id: true
@@ -77,7 +77,7 @@ export const getReplies = async (req: Request, res: Response) => {
     throw new NotFoundError('The comment with the given id was not found')
   }
 
-  //Collect replies
+  // Collect replies
   const replies = await prisma.comment.findMany({
     where: {
       parentId: parseInt(req.params.commentId)
@@ -89,10 +89,10 @@ export const getReplies = async (req: Request, res: Response) => {
 }
 
 export const createReply = async (req: Request, res: Response) => {
-  //Validate Data
+  // Validate Data
   const validatedData = createCommentSchemaValidator(req.body)
 
-  //Check if the comment exists
+  // Check if the comment exists
   const commentExists = await prisma.comment.findFirst({
     select: {
       id: true,
@@ -107,7 +107,7 @@ export const createReply = async (req: Request, res: Response) => {
     throw new NotFoundError('The comment with the given id was not found')
   }
 
-  //Create comment
+  // Create comment
   const comment = await prisma.comment.create({
     data: {
       postId: commentExists.postId,

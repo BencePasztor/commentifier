@@ -1,10 +1,10 @@
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import prisma from '@/lib/db'
 import { BadRequestError, NotFoundError } from '@/utils/errors'
 import { StatusCodes } from 'http-status-codes'
 
 export const createUpvote = async (req: Request, res: Response) => {
-  //Check if comment exists
+  // Check if comment exists
   const commentExists = !!(await prisma.comment.findUnique({
     select: {
       id: true
@@ -18,7 +18,7 @@ export const createUpvote = async (req: Request, res: Response) => {
     throw new NotFoundError('Comment not found')
   }
 
-  //Check if upvote exists
+  // Check if upvote exists
   const upvoteExists = !!(await prisma.upvote.findFirst({
     select: {
       commentId: true,
@@ -34,7 +34,7 @@ export const createUpvote = async (req: Request, res: Response) => {
     throw new BadRequestError('Upvote already exists')
   }
 
-  //Create upvote
+  // Create upvote
   const upvote = await prisma.upvote.create({
     data: {
       userId: req.user!.userId,
@@ -46,7 +46,7 @@ export const createUpvote = async (req: Request, res: Response) => {
 }
 
 export const deleteUpvote = async (req: Request, res: Response) => {
-  //Delete upvote
+  // Delete upvote
   const upvote = await prisma.upvote.deleteMany({
     where: {
       userId: req.user!.userId,
