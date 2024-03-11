@@ -22,6 +22,6 @@ export const errorHandlerMiddleware: ErrorRequestHandler = (
   }
 
   res
-    .status(err.statusCode as number ?? StatusCodes.INTERNAL_SERVER_ERROR)
+    .status((err.statusCode as number) ?? StatusCodes.INTERNAL_SERVER_ERROR)
     .json(errorData)
 }

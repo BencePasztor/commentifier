@@ -5,7 +5,11 @@ import {
   type NextFunction
 } from 'express'
 
-type AsyncHandler = (req: Request, res: Response, next: NextFunction) => Promise<any>
+type AsyncHandler = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => Promise<any>
 
 const asyncWrapper = (handler: AsyncHandler): RequestHandler => {
   return async (req: Request, res: Response, next: NextFunction) => {

@@ -19,15 +19,15 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  ignorePatterns: [".eslintrc.js", "src/types/custom.d.ts"],
+  ignorePatterns: ['.eslintrc.js', 'src/types/custom.d.ts'],
   rules: {
-    "@typescript-eslint/strict-boolean-expressions": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-misused-promises": [
-      "error",
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-misused-promises': [
+      'error',
       {
-        "checksVoidReturn": false
+        checksVoidReturn: false
       }
     ]
   }
