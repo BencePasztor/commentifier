@@ -7,12 +7,12 @@ const Header = () => {
   const headerState = useStickyHeader()
 
   const headerClasses = clsx({
-    "drop-shadow-md bg-neutral-100": headerState === HeaderState.STICKY,
+    "drop-shadow-md": headerState === HeaderState.STICKY,
     "-translate-y-full": headerState === HeaderState.HIDDEN,
   })
 
   return (
-    <header className={twMerge("sticky top-0 transition-all duration-200 z-10", headerClasses)}>
+    <header className={twMerge("sticky top-0 transition-all duration-200 z-10 bg-neutral-100", headerClasses)}>
       <NavBar />
     </header>
   )
