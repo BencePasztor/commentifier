@@ -1,7 +1,6 @@
-import Layout from "./components/Layout/Layout"
+import Layout from './components/Layout/Layout'
 
 function App() {
-
   return (
     <Layout>
       <h1>Frontend TODO</h1>

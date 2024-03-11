@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 // Enum defining the possible states of the header.
 export enum HeaderState {
-    STATIC = "STATIC",
-    STICKY = "STICKY",
-    HIDDEN = "HIDDEN"
+  STATIC = 'STATIC',
+  STICKY = 'STICKY',
+  HIDDEN = 'HIDDEN'
 }
 
 /**
@@ -12,31 +12,30 @@ export enum HeaderState {
  * @returns {HeaderState} The current state of the header based on scroll position
  */
 export const useStickyHeader = () => {
-    const [headerState, setHeaderState] = useState(HeaderState.STATIC)
+  const [headerState, setHeaderState] = useState(HeaderState.STATIC)
 
-    useEffect(() => {
-        let prevScrollY = 0
+  useEffect(() => {
+    let prevScrollY = 0
 
-        // Show, Hide or Fix the Header based on scroll position
-        const scrollHandler = () => {
-            console.log(prevScrollY, window.scrollY)
-            const isScrollingDown = prevScrollY < window.scrollY
-            prevScrollY = window.scrollY
+    // Show, Hide or Fix the Header based on scroll position
+    const scrollHandler = () => {
+      const isScrollingDown = prevScrollY < window.scrollY
+      prevScrollY = window.scrollY
 
-            if (isScrollingDown) {
-                setHeaderState(HeaderState.HIDDEN)
-            } else if (window.scrollY !== 0) {
-                setHeaderState(HeaderState.STICKY)
-            } else {
-                setHeaderState(HeaderState.STATIC)
-            }
-        }
+      if (isScrollingDown) {
+        setHeaderState(HeaderState.HIDDEN)
+      } else if (window.scrollY !== 0) {
+        setHeaderState(HeaderState.STICKY)
+      } else {
+        setHeaderState(HeaderState.STATIC)
+      }
+    }
 
-        window.addEventListener("scroll", scrollHandler)
-        return () => {
-            window.removeEventListener("scroll", scrollHandler)
-        }
-    }, [])
+    window.addEventListener('scroll', scrollHandler)
+    return () => {
+      window.removeEventListener('scroll', scrollHandler)
+    }
+  }, [])
 
-    return headerState
+  return headerState
 }
