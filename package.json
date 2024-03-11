@@ -1,6 +1,7 @@
 {
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "husky": "^9.0.11"
   },
   "name": "commentifier",
   "version": "1.0.0",
@@ -37,7 +38,8 @@
     "dev": "concurrently -n \"Backend,Frontend\" -c \"green,yellow\" --kill-others-on-fail \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
     "build": "concurrently -n \"Backend,Frontend\" -c \"green,yellow\" --kill-others-on-fail \"cd backend && npm run build\" \"cd frontend && npm run build\"",
     "start": "cd backend && npm run start",
-    "prettify": "concurrently -n \"Backend,Frontend\" -c \"green,yellow\" --kill-others-on-fail \"cd backend && npx prettier . --write\" \"cd frontend && npx prettier . --write\""
+    "prettify": "concurrently -n \"Backend,Frontend\" -c \"green,yellow\" --kill-others-on-fail \"cd backend && npx prettier . --write\" \"cd frontend && npx prettier . --write\"",
+    "prepare": "husky"
   },
   "author": "Bence Pásztor",
   "license": "ISC",
