@@ -57,7 +57,7 @@ export const login = async (req: Request, res: Response) => {
     }
   })
 
-  if (!user || !(await comparePasswords(password, user.password))) {
+  if (!user || !(await comparePasswords(password as string, user.password))) {
     throw new UnauthorizedError('Invalid credentials')
   }
 

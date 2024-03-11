@@ -4,7 +4,7 @@ export abstract class CustomError extends Error {
   name: string
   statusCode: StatusCodes
 
-  constructor(message: any, statusCode: StatusCodes) {
+  constructor(message: string, statusCode: StatusCodes) {
     super(message)
     this.name = this.constructor.name
     this.statusCode = statusCode
@@ -12,7 +12,7 @@ export abstract class CustomError extends Error {
 }
 
 export class NotFoundError extends CustomError {
-  constructor(message: any) {
+  constructor(message: string) {
     super(message, StatusCodes.NOT_FOUND)
   }
 }
@@ -20,7 +20,7 @@ export class NotFoundError extends CustomError {
 export class BadRequestError extends CustomError {
   errors: any
 
-  constructor(message: any, errors: any = null) {
+  constructor(message: string, errors: any = null) {
     super(message, StatusCodes.BAD_REQUEST)
 
     if (errors) {
@@ -30,7 +30,7 @@ export class BadRequestError extends CustomError {
 }
 
 export class UnauthorizedError extends CustomError {
-  constructor(message: any) {
+  constructor(message: string) {
     super(message, StatusCodes.UNAUTHORIZED)
   }
 }

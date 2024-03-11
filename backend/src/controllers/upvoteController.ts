@@ -47,7 +47,7 @@ export const createUpvote = async (req: Request, res: Response) => {
 
 export const deleteUpvote = async (req: Request, res: Response) => {
   // Delete upvote
-  const upvote = await prisma.upvote.deleteMany({
+  await prisma.upvote.deleteMany({
     where: {
       userId: req.user!.userId,
       commentId: parseInt(req.params.commentId)

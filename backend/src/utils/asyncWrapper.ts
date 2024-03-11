@@ -5,7 +5,9 @@ import {
   type NextFunction
 } from 'express'
 
-const asyncWrapper = (handler: RequestHandler): RequestHandler => {
+type AsyncHandler = (req: Request, res: Response, next: NextFunction) => Promise<any>
+
+const asyncWrapper = (handler: AsyncHandler): RequestHandler => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       await handler(req, res, next)

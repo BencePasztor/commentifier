@@ -1,6 +1,6 @@
 import jwt, { type JwtPayload } from 'jsonwebtoken'
 
-export const createToken = (payload: any): string => {
+export const createToken = (payload: string | object | Buffer): string => {
   return jwt.sign(payload, process.env.TOKEN_SECRET!, {
     expiresIn: parseInt(process.env.TOKEN_EXPIRATION_SECONDS!)
   })

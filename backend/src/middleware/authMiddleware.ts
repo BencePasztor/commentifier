@@ -17,7 +17,7 @@ export const authMiddleware = (
 
   // Validate token
   try {
-    const tokenPayload = verifyToken(token)
+    const tokenPayload = verifyToken(token as string)
     req.user = {
       username: tokenPayload.username,
       userId: tokenPayload.userId

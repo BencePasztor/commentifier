@@ -1,5 +1,4 @@
 import rateLimit from 'express-rate-limit'
-import { StatusCodes } from 'http-status-codes'
 
 export const commentRateLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,

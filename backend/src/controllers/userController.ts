@@ -27,6 +27,7 @@ export const updateProfile = async (req: Request, res: Response) => {
 
   // Delete previous avatar
   if (avatar && user.avatar) {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     deleteProfileImage(user.avatar)
   }
 
