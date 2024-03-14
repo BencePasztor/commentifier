@@ -77,6 +77,13 @@ export const getPosts = async (req: Request, res: Response) => {
   }
 
   const posts = await prisma.post.findMany({
+    include: {
+      _count: {
+        select: {
+          comment: true
+        }
+      }
+    },
     take: POSTS_PER_PAGE + 1, // +1 to get the next cursor
     orderBy: {
       createdAt: 'desc'
