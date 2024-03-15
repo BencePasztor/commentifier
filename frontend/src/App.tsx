@@ -15,7 +15,8 @@ const MOCK_DATA = [
   },
   {
     id: 2,
-    sourceUrl: 'https://telex.hu/eszkombajn/2024/01/26/elatkozott-presley-csalad',
+    sourceUrl:
+      'https://telex.hu/eszkombajn/2024/01/26/elatkozott-presley-csalad',
     title: 'A Presley család átka',
     description: 'Lorem ipsum dolor sit amet',
     image: PLACEHOLDER_IMAGE,

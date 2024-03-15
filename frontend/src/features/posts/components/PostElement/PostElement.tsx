@@ -2,7 +2,7 @@ import PostTitle from '@/features/posts/components/PostElement/PostTitle'
 import SourceLinkButton from '@/features/posts/components/PostElement/SourceLinkButton'
 import SubmissionTimeBadge from '@/features/posts/components/PostElement/SubmissionTimeBadge'
 import CommentCountBadge from '@/features/posts/components/PostElement/CommentCountBadge'
-import type { Post } from "@/features/posts/types"
+import type { Post } from '@/features/posts/types'
 
 const PostElement = ({
   id,
