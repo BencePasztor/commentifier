@@ -36,7 +36,9 @@ export const register = async (req: Request, res: Response) => {
     data: validatedData,
     select: {
       id: true,
-      email: true
+      username: true,
+      email: true,
+      avatarSource: true
     }
   })
 
@@ -50,7 +52,9 @@ export const login = async (req: Request, res: Response) => {
     select: {
       id: true,
       password: true,
-      username: true
+      username: true,
+      email: true,
+      avatarSource: true
     },
     where: {
       email
@@ -72,7 +76,14 @@ export const login = async (req: Request, res: Response) => {
     secure: process.env.NODE_ENV === 'production'
   })
 
-  return res.status(StatusCodes.OK).json({ message: 'Login successful' })
+  return res.status(StatusCodes.OK).json({
+    data: {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      avatarSource: user.avatarSource
+    }
+  })
 }
 
 export const logout = (req: Request, res: Response) => {
@@ -128,7 +139,8 @@ export const getCurrentUser = async (req: Request, res: Response) => {
     select: {
       id: true,
       username: true,
-      avatar: true
+      email: true,
+      avatarSource: true
     },
     where: {
       id: req.user!.userId
