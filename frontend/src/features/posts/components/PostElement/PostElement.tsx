@@ -7,30 +7,30 @@ import type { Post } from '@/features/posts/types'
 const PostElement = ({
   id,
   title,
-  image,
+  imageSource,
   sourceUrl,
   createdAt,
   _count
 }: Post) => {
   return (
     <li>
-      <article className="relative isolate size-full rounded-md overflow-hidden group">
+      <article className="relative overflow-hidden rounded-md isolate size-full group">
         {/* Background Image */}
         <img
-          src={image}
+          src={imageSource}
           alt={title}
-          className="absolute size-full object-cover top-0 left-0 -z-10"
+          className="absolute top-0 left-0 object-cover size-full -z-10"
         />
         {/* Container with gradient background */}
-        <div className="flex flex-col size-full bg-gradient-to-t from-secondary-500 to-transparent text-white group-hover:bg-secondary-600/20 transition-color duration-200">
+        <div className="flex flex-col text-white duration-200 size-full bg-gradient-to-t from-secondary-500 to-transparent group-hover:bg-secondary-600/20 transition-color">
           {/* Link to comment section */}
           <a
             href={`/TODO/${id}`}
-            className="flex-grow flex flex-col justify-end px-3 pt-3"
+            className="flex flex-col justify-end flex-grow px-3 pt-3"
           >
             <PostTitle>{title}</PostTitle>
           </a>
-          <div className="flex justify-between items-center px-3 pb-3 text-xs">
+          <div className="flex items-center justify-between px-3 pb-3 text-xs">
             <SourceLinkButton sourceUrl={sourceUrl}>Source</SourceLinkButton>
             <div className="flex items-center gap-2">
               <SubmissionTimeBadge createdAt={createdAt} />
