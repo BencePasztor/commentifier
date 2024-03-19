@@ -1,1 +1,1 @@
-export * from '@/features/posts/components/LatestPosts/LatestPosts'
+export * from './components/LatestPosts/LatestPosts'

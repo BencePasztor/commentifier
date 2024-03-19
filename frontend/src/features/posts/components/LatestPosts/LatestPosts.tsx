@@ -3,7 +3,7 @@ import { PostsGrid } from '@/features/posts/components/PostGrid/PostsGrid'
 import { useFetchPostsQuery } from '@/features/posts/api/postsApi'
 import { FetchCursor } from '@/features/posts/types'
 import Spinner from '@/components/Spinner/Spinner'
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
+import { useIntersectionObserver } from '@/hooks'
 
 export const LatestPosts = () => {
   // Intersection Observer for infinite scroll

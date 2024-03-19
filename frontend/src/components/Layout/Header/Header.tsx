@@ -1,7 +1,7 @@
 import NavBar from '@/components/Layout/Header/Navbar/Navbar'
 import { twMerge } from 'tailwind-merge'
 import clsx from 'clsx'
-import { HeaderState, useStickyHeader } from '@/hooks/useStickyHeader'
+import { HeaderState, useStickyHeader } from '@/hooks'
 
 const Header = () => {
   const headerState = useStickyHeader()
