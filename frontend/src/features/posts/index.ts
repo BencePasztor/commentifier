@@ -1,1 +1,1 @@
-export * from './components/LatestPosts/LatestPosts'
+export * from './routes'

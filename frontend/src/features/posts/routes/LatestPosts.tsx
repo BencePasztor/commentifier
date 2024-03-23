@@ -1,16 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { PostsGrid } from '@/features/posts/components/PostGrid/PostsGrid'
-import { useFetchPostsQuery } from '@/features/posts/api/postsApi'
-import { FetchCursor } from '@/features/posts/types'
 import Spinner from '@/components/Spinner/Spinner'
 import { useIntersectionObserver } from '@/hooks'
+import { useFetchPostsQuery } from '@/features/posts/api/postsApi'
+import { setPostsCursor } from '../store/postsSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '@/store'
 
 export const LatestPosts = () => {
   // Intersection Observer for infinite scroll
   const [targetRef, isIntersecting] = useIntersectionObserver<HTMLDivElement>()
 
   // The cursor for fetching the posts
-  const [cursor, setCursor] = useState<FetchCursor>(null)
+  const cursor = useSelector((state: RootState) => state.posts.cursor)
+  const dispatch = useDispatch()
   const {
     data: response,
     isSuccess,
@@ -22,9 +25,9 @@ export const LatestPosts = () => {
   // Fetch the next batch of posts
   useEffect(() => {
     if (isIntersecting && response?.nextCursor && !isFetching) {
-      setCursor(response.nextCursor)
+      dispatch(setPostsCursor(response.nextCursor))
     }
-  }, [isIntersecting, isFetching, response?.nextCursor])
+  }, [isIntersecting, isFetching, response?.nextCursor, dispatch])
 
   return (
     <div>

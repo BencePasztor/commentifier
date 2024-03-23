@@ -1,11 +1,11 @@
 import Logo from '@/components/Logo/Logo'
+import { Link } from 'react-router-dom'
 
-// TODO: Replace with NavLink
 const Brand = () => {
   return (
-    <a href="/">
+    <Link to="/">
       <Logo className="w-40 sm:w-auto" />
-    </a>
+    </Link>
   )
 }
 

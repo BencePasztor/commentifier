@@ -1,11 +1,12 @@
 import ReduxProvider from '@/providers/redux'
+import RouterProvider from '@/providers/router'
 
-interface ProvidersProps {
-  children: React.ReactNode
-}
-
-const Providers = ({ children }: ProvidersProps) => {
-  return <ReduxProvider>{children}</ReduxProvider>
+const Providers = () => {
+  return (
+    <ReduxProvider>
+      <RouterProvider />
+    </ReduxProvider>
+  )
 }
 
 export default Providers

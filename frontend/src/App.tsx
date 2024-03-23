@@ -1,12 +1,7 @@
-import Layout from '@/components/Layout/Layout'
-import { LatestPosts } from '@/features/posts'
+import Providers from '@/providers'
 
 function App() {
-  return (
-    <Layout>
-      <LatestPosts />
-    </Layout>
-  )
+  return <Providers />
 }
 
 export default App
