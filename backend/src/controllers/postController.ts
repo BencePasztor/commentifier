@@ -1,34 +1,58 @@
 import { type Request, type Response } from 'express'
 import { createPostSchemaValidator } from '@/schemas/postSchema'
 import prisma from '@/lib/db'
-import { BadRequestError, NotFoundError } from '@/utils/errors'
+import { BadRequestError, NotFoundError, ConflictError } from '@/utils/errors'
 import { StatusCodes } from 'http-status-codes'
 import { COMMENT_FIELDS } from '@/config/comment'
 import { POSTS_PER_PAGE } from '@/config/post'
 import { getMetadataFromUrl } from '@/utils/metadata'
 import { savePostImage } from '@/utils/postUtils'
 import { truncate } from '@/utils/common'
+import slugify from 'slugify'
 
 export const createPost = async (req: Request, res: Response) => {
   // Validate Data
   const validatedData = createPostSchemaValidator(req.body)
 
   // Check the uniqueness of the sourceUrl
-  const postExists = !!(await prisma.post.findFirst({
+  const duplicatePost = await prisma.post.findFirst({
     select: {
-      id: true
+      slug: true
     },
     where: {
       sourceUrl: validatedData.sourceUrl
     }
-  }))
+  })
 
-  if (postExists) {
-    throw new BadRequestError('A post with this sourceUrl already exists')
+  if (duplicatePost) {
+    throw new ConflictError(
+      'A post with this sourceUrl already exists',
+      duplicatePost.slug as string
+    )
   }
 
   // Get metadata
   const postMetadata = await getMetadataFromUrl(validatedData.sourceUrl)
+
+  // Slugify title
+  let slug = slugify(truncate(postMetadata.title, 150), { lower: true })
+
+  // Check the uniqueness of the slug and generate another one if it's not
+  const isSlugTaken = !!(await prisma.post.findFirst({
+    select: {
+      id: true
+    },
+    where: {
+      slug
+    }
+  }))
+
+  if (isSlugTaken) {
+    slug = slugify(
+      truncate(crypto.randomUUID() + '-' + postMetadata.title, 150),
+      { lower: true }
+    )
+  }
 
   // Save post image
   const postImage = await savePostImage(postMetadata.image)
@@ -38,6 +62,7 @@ export const createPost = async (req: Request, res: Response) => {
     data: {
       title: truncate(postMetadata.title, 150),
       description: truncate(postMetadata.description, 300),
+      slug,
       image: postImage,
       sourceUrl: validatedData.sourceUrl,
       createdBy: req.user!.userId
@@ -47,10 +72,10 @@ export const createPost = async (req: Request, res: Response) => {
   return res.status(StatusCodes.CREATED).json({ data: post })
 }
 
-export const getPostById = async (req: Request, res: Response) => {
-  const post = await prisma.post.findUnique({
+export const getPostBySlug = async (req: Request, res: Response) => {
+  const post = await prisma.post.findFirst({
     where: {
-      id: parseInt(req.params.postId)
+      slug: req.params.slug
     },
     include: {
       comment: {

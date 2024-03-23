@@ -1,6 +1,10 @@
 import { Router } from 'express'
 import asyncWrapper from '@/utils/asyncWrapper'
-import { getPostById, getPosts, createPost } from '@/controllers/postController'
+import {
+  getPostBySlug,
+  getPosts,
+  createPost
+} from '@/controllers/postController'
 import {
   createComment,
   getCommentsByPostId
@@ -15,7 +19,7 @@ const router = Router()
 
 // Posts
 router.get('/', asyncWrapper(getPosts))
-router.get('/:postId', asyncWrapper(getPostById))
+router.get('/:slug', asyncWrapper(getPostBySlug))
 router.post('/', authMiddleware, postRateLimiter, asyncWrapper(createPost))
 
 // Comments

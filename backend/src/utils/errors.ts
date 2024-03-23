@@ -22,15 +22,21 @@ export class BadRequestError extends CustomError {
 
   constructor(message: string, errors: any = null) {
     super(message, StatusCodes.BAD_REQUEST)
-
-    if (errors) {
-      this.errors = errors
-    }
+    this.errors = errors
   }
 }
 
 export class UnauthorizedError extends CustomError {
   constructor(message: string) {
     super(message, StatusCodes.UNAUTHORIZED)
+  }
+}
+
+export class ConflictError extends CustomError {
+  url?: string
+
+  constructor(message: string, url?: string) {
+    super(message, StatusCodes.CONFLICT)
+    this.url = url
   }
 }

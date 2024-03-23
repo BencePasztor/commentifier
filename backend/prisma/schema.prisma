@@ -23,6 +23,7 @@ model Post {
   id          Int       @id @default(autoincrement())
   sourceUrl   String    @db.VarChar(2083)
   title       String    @db.VarChar(150)
+  slug        String    @db.VarChar(150)
   description String    @db.VarChar(300)
   image       String?
   user        User      @relation(fields: [createdBy], references: [id])
