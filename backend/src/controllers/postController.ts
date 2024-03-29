@@ -27,7 +27,7 @@ export const createPost = async (req: Request, res: Response) => {
   if (duplicatePost) {
     throw new ConflictError(
       'A post with this sourceUrl already exists',
-      duplicatePost.slug as string
+      duplicatePost.slug
     )
   }
 
@@ -105,6 +105,7 @@ export const getPosts = async (req: Request, res: Response) => {
     select: {
       id: true,
       title: true,
+      slug: true,
       imageSource: true,
       sourceUrl: true,
       createdAt: true,
