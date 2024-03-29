@@ -1,9 +1,10 @@
 import { baseApi } from '@/store'
-import { FetchPostResult } from '@/features/posts/types'
+import type { FetchPostsResult, FetchPostBySlugResult } from '@/features/posts/types'
 
 const postsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    fetchPosts: build.query<FetchPostResult, null | number>({
+    // Fetches the latest posts based un a cursor
+    fetchPosts: build.query<FetchPostsResult, null | number>({
       query: (cursor) => (cursor ? `posts?cursor=${cursor}` : 'posts'),
       serializeQueryArgs: ({ endpointName }) => endpointName,
       merge: (cache, newData) => {
@@ -13,8 +14,12 @@ const postsApi = baseApi.injectEndpoints({
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg
       }
+    }),
+    // Fetches a post by the given slug
+    fetchPostBySlug: build.query<FetchPostBySlugResult, string>({
+      query: (slug) => `posts/${slug}`
     })
   })
 })
 
-export const { useFetchPostsQuery } = postsApi
+export const { useFetchPostsQuery, useFetchPostBySlugQuery } = postsApi

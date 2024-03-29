@@ -3,10 +3,11 @@ import SourceLinkButton from '@/features/posts/components/PostElement/SourceLink
 import SubmissionTimeBadge from '@/features/posts/components/PostElement/SubmissionTimeBadge'
 import CommentCountBadge from '@/features/posts/components/PostElement/CommentCountBadge'
 import type { Post } from '@/features/posts/types'
+import { Link } from "react-router-dom"
 
 const PostElement = ({
-  id,
   title,
+  slug,
   imageSource,
   sourceUrl,
   createdAt,
@@ -24,12 +25,12 @@ const PostElement = ({
         {/* Container with gradient background */}
         <div className="flex flex-col text-white duration-200 size-full bg-gradient-to-t from-secondary-500 to-transparent group-hover:bg-secondary-600/20 transition-color">
           {/* Link to comment section */}
-          <a
-            href={`/TODO/${id}`}
+          <Link
+            to={`/posts/${slug}`}
             className="flex flex-col justify-end flex-grow px-3 pt-3"
           >
             <PostTitle>{title}</PostTitle>
-          </a>
+          </Link>
           <div className="flex items-center justify-between px-3 pb-3 text-xs">
             <SourceLinkButton sourceUrl={sourceUrl}>Source</SourceLinkButton>
             <div className="flex items-center gap-2">

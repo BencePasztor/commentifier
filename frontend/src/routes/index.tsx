@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Layout from '@/components/Layout/Layout'
-import { LatestPosts, NewPost, SearchPosts } from '@/features/posts'
+import { LatestPosts, NewPost, SearchPosts, ViewPost } from '@/features/posts'
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +19,10 @@ export const router = createBrowserRouter([
       {
         path: '/search',
         element: <SearchPosts />
+      },
+      {
+        path: '/posts/:slug',
+        element: <ViewPost />
       }
     ]
   }

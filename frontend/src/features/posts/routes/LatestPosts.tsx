@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import Card from '@/components/Card/Card'
 import { PostsGrid } from '@/features/posts/components/PostGrid/PostsGrid'
 import Spinner from '@/components/Spinner/Spinner'
 import { useIntersectionObserver } from '@/hooks'
@@ -30,7 +31,7 @@ export const LatestPosts = () => {
   }, [isIntersecting, isFetching, response?.nextCursor, dispatch])
 
   return (
-    <div>
+    <Card className="w-full xl:rounded-lg xl:container">
       {/* Posts */}
       {isSuccess ? <PostsGrid posts={response.data} /> : null}
       <div className="my-2 text-center">
@@ -48,6 +49,6 @@ export const LatestPosts = () => {
       </div>
       {/* Triggers a fetch if it's visible on the screen */}
       <div ref={targetRef}></div>
-    </div>
+    </Card>
   )
 }
