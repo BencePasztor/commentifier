@@ -1,10 +1,10 @@
-import type { Comment } from "@/features/comments"
+import type { Comment } from '@/features/comments'
 
 export interface Post {
   id: number
-  title: string,
-  description: string,
-  slug: string,
+  title: string
+  description: string
+  slug: string
   imageSource: string
   sourceUrl: string
   createdAt: string

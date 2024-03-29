@@ -3,7 +3,7 @@ import SourceLinkButton from '@/features/posts/components/PostElement/SourceLink
 import SubmissionTimeBadge from '@/features/posts/components/PostElement/SubmissionTimeBadge'
 import CommentCountBadge from '@/features/posts/components/PostElement/CommentCountBadge'
 import type { Post } from '@/features/posts/types'
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
 
 const PostElement = ({
   title,

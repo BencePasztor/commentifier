@@ -1,16 +1,27 @@
 import { ComponentPropsWithoutRef, ElementType } from 'react'
-import { twMerge } from "tailwind-merge"
+import { twMerge } from 'tailwind-merge'
 
 type CardProps<E extends ElementType> = {
-    as?: E
+  as?: E
 } & Omit<ComponentPropsWithoutRef<E>, 'as'>
 
-const Card = <E extends ElementType>({ as, className, children }: CardProps<E>) => {
-    const Element = as ?? 'div'
+const Card = <E extends ElementType>({
+  as,
+  className,
+  children
+}: CardProps<E>) => {
+  const Element = as ?? 'div'
 
-    return (
-        <Element className={twMerge("p-4 my-4 bg-white mx-auto shadow-md overflow-hidden", className)}>{children}</Element>
-    )
+  return (
+    <Element
+      className={twMerge(
+        'p-4 my-4 bg-white mx-auto shadow-md overflow-hidden',
+        className
+      )}
+    >
+      {children}
+    </Element>
+  )
 }
 
 export default Card

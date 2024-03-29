@@ -1,5 +1,8 @@
 import { baseApi } from '@/store'
-import type { FetchPostsResult, FetchPostBySlugResult } from '@/features/posts/types'
+import type {
+  FetchPostsResult,
+  FetchPostBySlugResult
+} from '@/features/posts/types'
 
 const postsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
