@@ -7,7 +7,10 @@ interface SubmissionTimeBadgeBadgeProps {
 
 const SubmissionTimeBadge = ({ createdAt }: SubmissionTimeBadgeBadgeProps) => {
   return (
-    <time dateTime={createdAt} className="inline-flex gap-1 items-center">
+    <time
+      dateTime={createdAt}
+      className="inline-flex gap-1 items-center text-xs"
+    >
       <Clock size={14} />
       <span>{timeFrom(createdAt)}</span>
     </time>

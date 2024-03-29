@@ -1,14 +1,19 @@
 import type { Post } from '@/features/posts/types'
 import SourceLinkButton from '../../PostElement/SourceLinkButton'
+import SubmissionTimeBadge from '../../PostElement/SubmissionTimeBadge'
 
 interface PostHeaderProps
-  extends Pick<Post, 'title' | 'description' | 'imageSource' | 'sourceUrl'> {}
+  extends Pick<
+    Post,
+    'title' | 'description' | 'imageSource' | 'sourceUrl' | 'createdAt'
+  > {}
 
 const PostHeader = ({
   title,
   description,
   imageSource,
-  sourceUrl
+  sourceUrl,
+  createdAt
 }: PostHeaderProps) => {
   return (
     <article className="relative flex items-center w-full p-4 isolate min-h-80">
@@ -24,6 +29,9 @@ const PostHeader = ({
       <div className="text-white max-w-prose">
         <h1 className="mb-4 text-3xl font-medium">{title}</h1>
         <p className="mb-4 text-sm">{description}</p>
+        <p className="mb-4">
+          <SubmissionTimeBadge createdAt={createdAt} />
+        </p>
         <SourceLinkButton className="text-xs" sourceUrl={sourceUrl}>
           Source
         </SourceLinkButton>

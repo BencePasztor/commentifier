@@ -31,7 +31,7 @@ const PostElement = ({
           >
             <PostTitle>{title}</PostTitle>
           </Link>
-          <div className="flex items-center justify-between px-3 pb-3 text-xs">
+          <div className="flex items-center justify-between px-3 pb-3">
             <SourceLinkButton sourceUrl={sourceUrl}>Source</SourceLinkButton>
             <div className="flex items-center gap-2">
               <SubmissionTimeBadge createdAt={createdAt} />

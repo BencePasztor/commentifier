@@ -17,7 +17,7 @@ const SourceLinkButton = ({
       href={sourceUrl}
       target="_blank"
       className={twMerge(
-        'inline-flex items-center gap-1 px-2 py-1 font-light duration-200 border rounded-md transition-color border-neutral-400 hover:bg-primary-500 hover:border-primary-500',
+        'inline-flex items-center gap-1 px-2 py-1 font-light duration-200 border rounded-md transition-color border-neutral-400 hover:bg-primary-500 hover:border-primary-500 text-xs',
         className
       )}
     >

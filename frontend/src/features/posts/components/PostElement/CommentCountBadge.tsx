@@ -6,7 +6,7 @@ interface CommentCountBadgeProps {
 
 const CommentCountBadge = ({ count }: CommentCountBadgeProps) => {
   return (
-    <span className="inline-flex gap-1 items-center">
+    <span className="inline-flex gap-1 items-center text-xs">
       <MessageCircleMore size={14} />
       <span>{count ?? 0}</span>
     </span>

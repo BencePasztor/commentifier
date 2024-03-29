@@ -2,14 +2,19 @@ import PostHeader from './PostHeader/PostHeader'
 import type { PostWithComments } from '../../types'
 
 const PostPage = ({
-  /*id,*/ title,
+  /*id,*/
+  title,
   description,
   imageSource,
-  sourceUrl /*_count, createdAt, comment*/
+  sourceUrl,
+  createdAt
+  /*_count, comment*/
 }: PostWithComments) => {
   return (
     <>
-      <PostHeader {...{ title, description, imageSource, sourceUrl }} />
+      <PostHeader
+        {...{ title, description, imageSource, sourceUrl, createdAt }}
+      />
       {/* TODO: Comments */}
     </>
   )
