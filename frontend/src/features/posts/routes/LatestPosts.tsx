@@ -1,54 +1,27 @@
-import { useEffect } from 'react'
-import Card from '@/components/Card/Card'
-import { PostsGrid } from '@/features/posts/components/PostGrid/PostsGrid'
-import Spinner from '@/components/Spinner/Spinner'
-import { useIntersectionObserver } from '@/hooks'
+import { Card } from '@/components/Elements'
 import { useFetchPostsQuery } from '@/features/posts/api/postsApi'
 import { setPostsCursor } from '../store/postsSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '@/store'
+import type { RootState } from '@/store'
+import InfinitePosts from '../components/InfinitePosts/InfinitePosts'
+import type { FetchCursor } from '../types'
 
 export const LatestPosts = () => {
-  // Intersection Observer for infinite scroll
-  const [targetRef, isIntersecting] = useIntersectionObserver<HTMLDivElement>()
-
   // The cursor for fetching the posts
   const cursor = useSelector((state: RootState) => state.posts.cursor)
-  const dispatch = useDispatch()
-  const {
-    data: response,
-    isSuccess,
-    isFetching,
-    isError,
-    refetch
-  } = useFetchPostsQuery(cursor)
 
-  // Fetch the next batch of posts
-  useEffect(() => {
-    if (isIntersecting && response?.nextCursor && !isFetching) {
-      dispatch(setPostsCursor(response.nextCursor))
-    }
-  }, [isIntersecting, isFetching, response?.nextCursor, dispatch])
+  // A function for changing the current cursor in the store
+  const dispatch = useDispatch()
+  const setCursor = (cursor: FetchCursor) => {
+    dispatch(setPostsCursor(cursor))
+  }
+
+  // The query hook for the InfinitePosts component
+  const queryHookResult = useFetchPostsQuery(cursor)
 
   return (
     <Card className="w-full xl:rounded-lg xl:container">
-      {/* Posts */}
-      {isSuccess ? <PostsGrid posts={response.data} /> : null}
-      <div className="my-2 text-center">
-        {/* Error message */}
-        {isError ? (
-          <p>
-            Oops something went wrong.{' '}
-            <button className="font-medium text-primary-500" onClick={refetch}>
-              Try again.
-            </button>
-          </p>
-        ) : null}
-        {/* Spinner for loading */}
-        {isFetching ? <Spinner /> : null}
-      </div>
-      {/* Triggers a fetch if it's visible on the screen */}
-      <div ref={targetRef}></div>
+      <InfinitePosts setCursor={setCursor} {...queryHookResult} />
     </Card>
   )
 }

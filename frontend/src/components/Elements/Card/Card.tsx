@@ -5,7 +5,7 @@ type CardProps<E extends ElementType> = {
   as?: E
 } & Omit<ComponentPropsWithoutRef<E>, 'as'>
 
-const Card = <E extends ElementType>({
+export const Card = <E extends ElementType>({
   as,
   className,
   children
@@ -23,5 +23,3 @@ const Card = <E extends ElementType>({
     </Element>
   )
 }
-
-export default Card

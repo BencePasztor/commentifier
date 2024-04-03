@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
-import Layout from '@/components/Layout/Layout'
+import { Layout } from '@/components/Layout'
 import { LatestPosts, NewPost, SearchPosts, ViewPost } from '@/features/posts'
 
 export const router = createBrowserRouter([

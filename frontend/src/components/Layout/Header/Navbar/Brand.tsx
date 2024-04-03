@@ -1,4 +1,4 @@
-import Logo from '@/components/Logo/Logo'
+import Logo from '@/components/Elements/Logo/Logo'
 import { Link } from 'react-router-dom'
 
 const Brand = () => {

@@ -3,7 +3,8 @@ import asyncWrapper from '@/utils/asyncWrapper'
 import {
   getPostBySlug,
   getPosts,
-  createPost
+  createPost,
+  searchPosts
 } from '@/controllers/postController'
 import {
   createComment,
@@ -19,6 +20,7 @@ const router = Router()
 
 // Posts
 router.get('/', asyncWrapper(getPosts))
+router.get('/search', asyncWrapper(searchPosts))
 router.get('/:slug', asyncWrapper(getPostBySlug))
 router.post('/', authMiddleware, postRateLimiter, asyncWrapper(createPost))
 

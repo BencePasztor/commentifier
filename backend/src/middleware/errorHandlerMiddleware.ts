@@ -18,7 +18,7 @@ export const errorHandlerMiddleware: ErrorRequestHandler = (
     message: err.message ?? 'Internal Server Error'
   }
 
-  if (err instanceof BadRequestError) {
+  if (err instanceof BadRequestError && err.errors !== null) {
     errorData.errors = err.errors
   }
 

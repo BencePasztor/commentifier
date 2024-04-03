@@ -128,3 +128,52 @@ export const getPosts = async (req: Request, res: Response) => {
       posts.length > POSTS_PER_PAGE ? posts[posts.length - 1].id : null
   })
 }
+
+export const searchPosts = async (req: Request, res: Response) => {
+  const cursorParam = req.query.cursor
+  const searchParam = req.query.search
+
+  if (
+    cursorParam &&
+    (typeof cursorParam !== 'string' || isNaN(parseInt(cursorParam)))
+  ) {
+    throw new BadRequestError('Invalid cursor!')
+  }
+
+  if (!searchParam || typeof searchParam !== 'string') {
+    throw new BadRequestError('Invalid search parameter!')
+  }
+
+  const posts = await prisma.post.findMany({
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      imageSource: true,
+      sourceUrl: true,
+      createdAt: true,
+      _count: {
+        select: {
+          comment: true
+        }
+      }
+    },
+    where: {
+      OR: [
+        { title: { contains: searchParam } },
+        { description: { contains: searchParam } }
+      ]
+    },
+    take: POSTS_PER_PAGE + 1, // +1 to get the next cursor
+    orderBy: {
+      createdAt: 'desc'
+    },
+    cursor: cursorParam ? { id: parseInt(cursorParam) } : undefined
+  })
+
+  return res.status(StatusCodes.OK).json({
+    data: posts.slice(0, POSTS_PER_PAGE),
+    nextCursor:
+      posts.length > POSTS_PER_PAGE ? posts[posts.length - 1].id : null
+  })
+}

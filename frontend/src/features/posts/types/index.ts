@@ -27,3 +27,13 @@ export interface PostWithComments extends Post {
 export interface FetchPostBySlugResult {
   data: PostWithComments
 }
+
+export interface SearchPostParams {
+  cursor: null | number
+  search: string
+}
+
+export type PostSearch = {
+  cursor: FetchCursor
+  search: string
+}

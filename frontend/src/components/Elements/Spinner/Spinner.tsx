@@ -4,7 +4,7 @@ interface SpinnerProps {
   className?: string
 }
 
-const Spinner = ({ className }: SpinnerProps) => {
+export const Spinner = ({ className }: SpinnerProps) => {
   return (
     <div
       role="status"
@@ -15,5 +15,3 @@ const Spinner = ({ className }: SpinnerProps) => {
     ></div>
   )
 }
-
-export default Spinner
