@@ -9,7 +9,7 @@ const zodValidatorFactory = <T>(schema: ZodSchema<T>) => {
       return parseResult.data
     }
 
-    throw new BadRequestError('Invalid input data', parseResult.error.format())
+    throw new BadRequestError('Invalid input data', parseResult.error.flatten())
   }
 }
 
