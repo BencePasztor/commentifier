@@ -1,12 +1,10 @@
 import NavListElement from '@/components/Layout/Header/Navbar/NavListElement'
 import { Search, CircleUserRound, Plus, Power } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/store'
-import { useLogout } from '@/features/auth'
+import { useLogout, useAuthState } from '@/features/auth'
 
 const NavList = () => {
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
+  const isLoggedIn = useAuthState()
   const { logout, isLoading } = useLogout()
 
   return (

@@ -1,6 +1,5 @@
 import { Navigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/store'
+import { useAuthState } from '../../hooks'
 
 interface AuthGuardProps {
   redirect?: 'authenticated' | 'unauthenticated'
@@ -13,7 +12,7 @@ export const AuthGuard = ({
   to = '/',
   children
 }: AuthGuardProps) => {
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
+  const { isLoggedIn } = useAuthState()
   const shouldNavigate =
     (redirect === 'authenticated' && isLoggedIn) ||
     (redirect === 'unauthenticated' && !isLoggedIn)
