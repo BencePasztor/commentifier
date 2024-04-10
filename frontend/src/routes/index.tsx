@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Layout } from '@/components/Layout'
 import { LatestPosts, NewPost, SearchPosts, ViewPost } from '@/features/posts'
+import { Login, Register, AuthGuard } from '@/features/auth'
 
 export const router = createBrowserRouter([
   {
@@ -8,6 +9,7 @@ export const router = createBrowserRouter([
     element: <Layout />,
     // errorElement: TODO,
     children: [
+      // Posts
       {
         index: true,
         element: <LatestPosts />
@@ -23,6 +25,23 @@ export const router = createBrowserRouter([
       {
         path: '/posts/:slug',
         element: <ViewPost />
+      },
+      // Auth
+      {
+        path: '/login',
+        element: (
+          <AuthGuard redirect="authenticated" to="/">
+            <Login />
+          </AuthGuard>
+        )
+      },
+      {
+        path: '/register',
+        element: (
+          <AuthGuard redirect="authenticated" to="/">
+            <Register />
+          </AuthGuard>
+        )
       }
     ]
   }

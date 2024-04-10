@@ -42,6 +42,17 @@ export const register = async (req: Request, res: Response) => {
     }
   })
 
+  const token = createToken({
+    userId: user.id,
+    username: user.username
+  })
+
+  res.cookie('token', token, {
+    httpOnly: true,
+    maxAge: parseInt(process.env.TOKEN_EXPIRATION_SECONDS!) * 1000,
+    secure: process.env.NODE_ENV === 'production'
+  })
+
   return res.status(StatusCodes.CREATED).json({ data: user })
 }
 
