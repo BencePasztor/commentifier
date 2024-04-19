@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useLogout, useAuthState } from '@/features/auth'
 
 const NavList = () => {
-  const isLoggedIn = useAuthState()
+  const { isLoggedIn } = useAuthState()
   const { logout, isLoading } = useLogout()
 
   return (
