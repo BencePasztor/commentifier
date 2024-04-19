@@ -13,17 +13,22 @@ interface UserData {
   avatarSource: string
 }
 
-export interface AuthState {
-  isLoggedIn: boolean
-  user: UserData | null
-}
+export type AuthState =
+  | {
+      isLoggedIn: false
+      user: null
+    }
+  | {
+      isLoggedIn: true
+      user: UserData
+    }
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState: getAuthStorage,
   reducers: {
     setUser: (_, action: PayloadAction<UserData>) => {
-      const newState = {
+      const newState: AuthState = {
         isLoggedIn: true,
         user: action.payload
       }
@@ -40,7 +45,7 @@ export const authSlice = createSlice({
       return {
         isLoggedIn: false,
         user: null
-      }
+      } as AuthState
     }
   }
 })

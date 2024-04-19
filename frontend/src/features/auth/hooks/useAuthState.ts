@@ -2,8 +2,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
 
 const useAuthState = () => {
-  const { isLoggedIn, user } = useSelector((state: RootState) => state.auth)
-  return { isLoggedIn, user }
+  return useSelector((state: RootState) => state.auth)
 }
 
 export { useAuthState }
