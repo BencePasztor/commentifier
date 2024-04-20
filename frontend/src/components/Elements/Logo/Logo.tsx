@@ -1,4 +1,4 @@
-const Logo = ({ className }: { className?: string }) => {
+export const Logo = ({ className }: { className?: string }) => {
   return (
     <svg
       width="216"
@@ -22,5 +22,3 @@ const Logo = ({ className }: { className?: string }) => {
     </svg>
   )
 }
-
-export default Logo

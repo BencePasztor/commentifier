@@ -1,5 +1,5 @@
-import Brand from '@/components/Layout/Header/Navbar/Brand'
-import NavList from '@/components/Layout/Header/Navbar/NavList'
+import Brand from './Brand'
+import NavList from './NavList'
 
 const Navbar = () => {
   return (

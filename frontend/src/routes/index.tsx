@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Layout } from '@/components/Layout'
 import { LatestPosts, NewPost, SearchPosts, ViewPost } from '@/features/posts'
-import { Login, Register, AuthGuard } from '@/features/auth'
+import { Login, Register, AuthGuard, Profile } from '@/features/auth'
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +40,14 @@ export const router = createBrowserRouter([
         element: (
           <AuthGuard redirect="authenticated" to="/">
             <Register />
+          </AuthGuard>
+        )
+      },
+      {
+        path: '/profile',
+        element: (
+          <AuthGuard redirect="unauthenticated" to="/">
+            <Profile />
           </AuthGuard>
         )
       }

@@ -3,20 +3,20 @@ import { LucideIcon } from 'lucide-react'
 import { twMerge } from 'tailwind-merge'
 import clsx from 'clsx'
 
-type NavListElementProps<E extends ElementType> = {
+type NavItemProps<E extends ElementType> = {
   as?: E
   highlighted?: boolean
   icon?: LucideIcon
 } & Omit<ComponentPropsWithoutRef<E>, 'as'>
 
-const NavListElement = <E extends ElementType>({
+const NavItem = <E extends ElementType>({
   as,
   icon,
   highlighted,
   className,
   children,
   ...restProps
-}: NavListElementProps<E>) => {
+}: NavItemProps<E>) => {
   const Element = as ?? 'a'
   const Icon = icon
 
@@ -38,11 +38,11 @@ const NavListElement = <E extends ElementType>({
   return (
     <li>
       <Element className={elementClasses} {...restProps}>
-        {Icon && <Icon className={iconClasses} />}
+        {Icon ? <Icon className={iconClasses} /> : null}
         <span className={clsx({ 'hidden md:inline': icon })}>{children}</span>
       </Element>
     </li>
   )
 }
 
-export default NavListElement
+export default NavItem

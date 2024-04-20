@@ -1,4 +1,4 @@
-import NavBar from '@/components/Layout/Header/Navbar/Navbar'
+import NavBar from './Navbar/Navbar'
 import { twMerge } from 'tailwind-merge'
 import clsx from 'clsx'
 import { HeaderState, useStickyHeader } from '@/hooks'
