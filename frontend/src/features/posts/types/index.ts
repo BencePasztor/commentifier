@@ -1,4 +1,5 @@
 import type { Comment } from '@/features/comments'
+import { z } from 'zod'
 
 export interface Post {
   id: number
@@ -36,4 +37,26 @@ export interface SearchPostParams {
 export type PostSearch = {
   cursor: FetchCursor
   search: string
+}
+
+export const newPostSchema = z.object({
+  sourceUrl: z
+    .string()
+    .trim()
+    .max(2083, 'The max lenght of the URL is 2083 characters')
+    .url('Invalid URL')
+    .transform((urlString) => {
+      const cleanUrl = new URL(urlString)
+      cleanUrl.hash = ''
+      cleanUrl.search = ''
+      return cleanUrl.toString()
+    })
+})
+
+export type NewPostData = z.infer<typeof newPostSchema>
+
+export interface CreatePostResponse {
+  data: {
+    slug: string
+  }
 }

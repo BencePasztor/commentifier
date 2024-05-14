@@ -6,8 +6,12 @@ import { authReducer } from '@/features/auth/store/authSlice'
 import { authMiddleware } from '@/features/auth/api/authMiddleware'
 
 export const baseApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
-  endpoints: () => ({})
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_API_URL,
+    credentials: 'include'
+  }),
+  endpoints: () => ({}),
+  tagTypes: ['Posts']
 })
 
 export const store = configureStore({

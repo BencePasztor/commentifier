@@ -31,12 +31,3 @@ export class UnauthorizedError extends CustomError {
     super(message, StatusCodes.UNAUTHORIZED)
   }
 }
-
-export class ConflictError extends CustomError {
-  url?: string
-
-  constructor(message: string, url?: string) {
-    super(message, StatusCodes.CONFLICT)
-    this.url = url
-  }
-}

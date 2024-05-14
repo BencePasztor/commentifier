@@ -2,14 +2,18 @@ import { baseApi } from '@/store'
 import type {
   FetchPostsResult,
   FetchPostBySlugResult,
-  SearchPostParams
+  SearchPostParams,
+  NewPostData,
+  CreatePostResponse
 } from '@/features/posts/types'
+import { clearPostsCursor, clearSearchPostsCursor } from '../store/postsSlice'
 
 const postsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     // Fetches the latest posts based un a cursor
     fetchPosts: build.query<FetchPostsResult, null | number>({
       query: (cursor) => (cursor ? `posts?cursor=${cursor}` : 'posts'),
+      providesTags: ['Posts'],
       keepUnusedDataFor: Infinity,
       serializeQueryArgs: ({ endpointName }) => endpointName,
       merge: (cache, newData) => {
@@ -18,6 +22,19 @@ const postsApi = baseApi.injectEndpoints({
       },
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg
+      },
+      // Clears stored cursor when cached data is removed
+      async onCacheEntryAdded(
+        _,
+        { cacheDataLoaded, cacheEntryRemoved, dispatch }
+      ) {
+        try {
+          await cacheDataLoaded
+        } catch (e) {
+          console.error(e)
+        }
+        await cacheEntryRemoved
+        dispatch(clearPostsCursor())
       }
     }),
     // Fetches a post by the given slug
@@ -30,6 +47,7 @@ const postsApi = baseApi.injectEndpoints({
         cursor
           ? `posts/search?cursor=${cursor}&search=${encodeURIComponent(search)}`
           : `posts/search?search=${encodeURIComponent(search)}`,
+      providesTags: ['Posts'],
       keepUnusedDataFor: Infinity,
       serializeQueryArgs: ({ queryArgs }) => queryArgs.search,
       merge: (cache, newData) => {
@@ -42,7 +60,29 @@ const postsApi = baseApi.injectEndpoints({
           currentArg?.cursor !== previousArg?.cursor ||
           currentArg?.search !== previousArg?.search
         )
+      },
+      // Clears stored cursor when cached data is removed
+      async onCacheEntryAdded(
+        _,
+        { cacheDataLoaded, cacheEntryRemoved, dispatch }
+      ) {
+        try {
+          await cacheDataLoaded
+        } catch (e) {
+          console.error(e)
+        }
+        await cacheEntryRemoved
+        dispatch(clearSearchPostsCursor())
       }
+    }),
+    // Creates a new post with the given sourceUrl
+    createPost: build.mutation<CreatePostResponse, NewPostData>({
+      query: (postData) => ({
+        url: 'posts',
+        method: 'POST',
+        body: postData
+      }),
+      invalidatesTags: ['Posts']
     })
   })
 })
@@ -50,5 +90,6 @@ const postsApi = baseApi.injectEndpoints({
 export const {
   useFetchPostsQuery,
   useFetchPostBySlugQuery,
-  useSearchPostsQuery
+  useSearchPostsQuery,
+  useCreatePostMutation
 } = postsApi

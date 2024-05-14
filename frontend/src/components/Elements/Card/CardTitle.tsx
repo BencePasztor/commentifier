@@ -1,9 +1,7 @@
-interface PageTitleProps {
+interface CardTitleProps {
   children: React.ReactNode
 }
 
-const PageTitle = ({ children }: PageTitleProps) => {
+export const CardTitle = ({ children }: CardTitleProps) => {
   return <h1 className="text-2xl font-medium text-center">{children}</h1>
 }
-
-export default PageTitle

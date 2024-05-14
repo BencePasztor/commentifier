@@ -22,12 +22,23 @@ export const postsSlice = createSlice({
     setPostsCursor: (state, action: PayloadAction<FetchCursor>) => {
       state.cursor = action.payload
     },
+    clearPostsCursor: (state) => {
+      state.cursor = null
+    },
     setPostsSearchState: (state, action: PayloadAction<PostSearch>) => {
       state.searchState = action.payload
+    },
+    clearSearchPostsCursor: (state) => {
+      state.searchState.cursor = null
     }
   }
 })
 
-export const { setPostsCursor, setPostsSearchState } = postsSlice.actions
+export const {
+  setPostsCursor,
+  setPostsSearchState,
+  clearPostsCursor,
+  clearSearchPostsCursor
+} = postsSlice.actions
 
 export const { reducer: postsReducer } = postsSlice

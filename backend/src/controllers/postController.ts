@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express'
 import { createPostSchemaValidator } from '@/schemas/postSchema'
 import prisma from '@/lib/db'
-import { BadRequestError, NotFoundError, ConflictError } from '@/utils/errors'
+import { BadRequestError, NotFoundError } from '@/utils/errors'
 import { StatusCodes } from 'http-status-codes'
 import { COMMENT_FIELDS } from '@/config/comment'
 import { POSTS_PER_PAGE } from '@/config/post'
@@ -25,10 +25,9 @@ export const createPost = async (req: Request, res: Response) => {
   })
 
   if (duplicatePost) {
-    throw new ConflictError(
-      'A post with this sourceUrl already exists',
-      duplicatePost.slug
-    )
+    return res
+      .status(StatusCodes.CREATED)
+      .json({ data: { slug: duplicatePost.slug } })
   }
 
   // Get metadata
@@ -69,7 +68,7 @@ export const createPost = async (req: Request, res: Response) => {
     }
   })
 
-  return res.status(StatusCodes.CREATED).json({ data: post })
+  return res.status(StatusCodes.CREATED).json({ data: { slug: post.slug } })
 }
 
 export const getPostBySlug = async (req: Request, res: Response) => {

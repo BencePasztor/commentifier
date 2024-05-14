@@ -4,7 +4,6 @@ import { useZodForm } from '@/hooks'
 import { RegisterData, registerSchema } from '../../types'
 import { useRegisterMutation } from '../../api/authApi'
 import { setServerSideErrors } from '@/utils/form'
-import { ErrorResponse } from '@/types'
 import { Link, useNavigate } from 'react-router-dom'
 import { setUser } from '../../store/authSlice'
 import { useDispatch } from 'react-redux'
@@ -29,14 +28,7 @@ const RegisterForm = () => {
       // Error Handling
       if ('error' in response) {
         const { error } = response
-        // SerializedError
-        if ('message' in error) {
-          setServerSideErrors(error, setError)
-        }
-        // FetchBaseQueryError
-        else if ('data' in error) {
-          setServerSideErrors(error.data as ErrorResponse, setError)
-        }
+        setServerSideErrors(error, setError)
         return
       }
 
