@@ -1,5 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { Avatar } from '../Avatar'
+import { Avatar } from '@/components/Elements'
 import { useLogout, useAuthState } from '@/features/auth'
 import NavListElement from '../NavItem'
 import { CircleUserRound, Power } from 'lucide-react'
@@ -28,13 +28,13 @@ export const NavAuth = () => {
             <DropdownContent sideOffset={4}>
               <DropdownItem asChild>
                 <Link to="/profile">
-                  <CircleUserRound className="size-5 mr-1 transition-colors duration-200 group-hover:text-primary-500" />
+                  <CircleUserRound className="mr-1 transition-colors duration-200 size-5 group-hover:text-primary-500" />
                   <span>Profile</span>
                 </Link>
               </DropdownItem>
               <DropdownItem asChild>
                 <button onClick={logout} disabled={isLoading}>
-                  <Power className="size-5 mr-1 transition-colors duration-200 group-hover:text-primary-500" />
+                  <Power className="mr-1 transition-colors duration-200 size-5 group-hover:text-primary-500" />
                   <span>Logout</span>
                 </button>
               </DropdownItem>

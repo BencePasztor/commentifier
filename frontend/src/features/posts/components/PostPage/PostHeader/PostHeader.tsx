@@ -1,6 +1,7 @@
 import type { Post } from '@/features/posts/types'
 import SourceLinkButton from '../../PostElement/SourceLinkButton'
-import SubmissionTimeBadge from '../../PostElement/SubmissionTimeBadge'
+import { PassedTime } from '@/components/Elements'
+import { Clock } from 'lucide-react'
 
 interface PostHeaderProps
   extends Pick<
@@ -30,7 +31,11 @@ const PostHeader = ({
         <h1 className="mb-4 text-3xl font-medium">{title}</h1>
         <p className="mb-4 text-sm">{description}</p>
         <p className="mb-4">
-          <SubmissionTimeBadge createdAt={createdAt} />
+          <PassedTime
+            className="inline-flex gap-1 items-center text-xs"
+            dateTime={createdAt}
+            children={<Clock size={14} />}
+          />
         </p>
         <SourceLinkButton className="text-xs" sourceUrl={sourceUrl}>
           Source

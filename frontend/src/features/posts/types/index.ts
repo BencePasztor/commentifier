@@ -1,4 +1,3 @@
-import type { Comment } from '@/features/comments'
 import { z } from 'zod'
 
 export interface Post {
@@ -21,12 +20,8 @@ export interface FetchPostsResult {
   nextCursor: FetchCursor
 }
 
-export interface PostWithComments extends Post {
-  comment: Comment[]
-}
-
 export interface FetchPostBySlugResult {
-  data: PostWithComments
+  data: Post
 }
 
 export interface SearchPostParams {

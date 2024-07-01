@@ -1,21 +1,22 @@
 import PostHeader from './PostHeader/PostHeader'
-import type { PostWithComments } from '../../types'
+import type { Post } from '../../types'
+import { InfiniteComments, CreateCommentForm } from '@/features/comments'
 
 const PostPage = ({
-  /*id,*/
+  id,
   title,
   description,
   imageSource,
   sourceUrl,
   createdAt
-  /*_count, comment*/
-}: PostWithComments) => {
+}: Post) => {
   return (
     <>
       <PostHeader
         {...{ title, description, imageSource, sourceUrl, createdAt }}
       />
-      {/* TODO: Comments */}
+      <CreateCommentForm postId={id} />
+      <InfiniteComments postId={id} />
     </>
   )
 }

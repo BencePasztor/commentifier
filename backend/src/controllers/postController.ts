@@ -3,7 +3,6 @@ import { createPostSchemaValidator } from '@/schemas/postSchema'
 import prisma from '@/lib/db'
 import { BadRequestError, NotFoundError } from '@/utils/errors'
 import { StatusCodes } from 'http-status-codes'
-import { COMMENT_FIELDS } from '@/config/comment'
 import { POSTS_PER_PAGE } from '@/config/post'
 import { getMetadataFromUrl } from '@/utils/metadata'
 import { savePostImage } from '@/utils/postUtils'
@@ -75,11 +74,6 @@ export const getPostBySlug = async (req: Request, res: Response) => {
   const post = await prisma.post.findFirst({
     where: {
       slug: req.params.slug
-    },
-    include: {
-      comment: {
-        select: COMMENT_FIELDS
-      }
     }
   })
 

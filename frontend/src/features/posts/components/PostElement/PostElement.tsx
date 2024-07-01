@@ -1,9 +1,10 @@
-import PostTitle from '@/features/posts/components/PostElement/PostTitle'
-import SourceLinkButton from '@/features/posts/components/PostElement/SourceLinkButton'
-import SubmissionTimeBadge from '@/features/posts/components/PostElement/SubmissionTimeBadge'
-import CommentCountBadge from '@/features/posts/components/PostElement/CommentCountBadge'
-import type { Post } from '@/features/posts/types'
+import PostTitle from './PostTitle'
+import SourceLinkButton from './SourceLinkButton'
+import CommentCountBadge from './CommentCountBadge'
+import type { Post } from '../../types'
 import { Link } from 'react-router-dom'
+import { PassedTime } from '@/components/Elements'
+import { Clock } from 'lucide-react'
 
 const PostElement = ({
   title,
@@ -34,7 +35,11 @@ const PostElement = ({
           <div className="flex items-center justify-between px-3 pb-3">
             <SourceLinkButton sourceUrl={sourceUrl}>Source</SourceLinkButton>
             <div className="flex items-center gap-2">
-              <SubmissionTimeBadge createdAt={createdAt} />
+              <PassedTime
+                className="inline-flex gap-1 items-center text-xs"
+                dateTime={createdAt}
+                children={<Clock size={14} />}
+              />
               <CommentCountBadge count={_count.comment} />
             </div>
           </div>
