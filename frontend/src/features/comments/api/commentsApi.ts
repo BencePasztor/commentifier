@@ -21,6 +21,7 @@ const commentsApi = baseApi.injectEndpoints({
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
         return `${endpointName}-${queryArgs.postId}`
       },
+      keepUnusedDataFor: 0,
       merge: (cache, newData) => {
         cache.nextCursor = newData.nextCursor
         cache.data.push(...newData.data)

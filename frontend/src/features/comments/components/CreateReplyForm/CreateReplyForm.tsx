@@ -5,6 +5,8 @@ import { useZodForm } from '@/hooks'
 import { commentSchema, NewCommentData } from '../..'
 import { SubmitHandler } from 'react-hook-form'
 import { setServerSideErrors } from '@/utils/form'
+import { AuthPrompt } from '../AuthPrompt/AuthPrompt'
+import { useAuthState } from '@/features/auth'
 
 interface CreateReplyFormProps {
   commentId: number
@@ -15,6 +17,8 @@ export const CreateReplyForm = ({
   commentId,
   onSuccess
 }: CreateReplyFormProps) => {
+  const authState = useAuthState()
+
   const [createReply, { isLoading }] = useCreateReplyMutation()
 
   const {
@@ -49,6 +53,11 @@ export const CreateReplyForm = ({
     } catch (e) {
       setError('root', { type: 'custom', message: 'Unknown error' })
     }
+  }
+
+  // If the user is not logged in, display a register/login prompt
+  if (!authState.isLoggedIn) {
+    return <AuthPrompt />
   }
 
   return (
