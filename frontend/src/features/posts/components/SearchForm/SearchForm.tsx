@@ -6,7 +6,7 @@ interface SearchFormProps {
   value?: string
 }
 
-const SearchForm = ({ handleSubmit, value = '' }: SearchFormProps) => {
+export const SearchForm = ({ handleSubmit, value = '' }: SearchFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const onSubmit = (e: FormEvent) => {
@@ -34,5 +34,3 @@ const SearchForm = ({ handleSubmit, value = '' }: SearchFormProps) => {
     </div>
   )
 }
-
-export default SearchForm

@@ -1,9 +1,9 @@
-import NavBar from './Navbar/Navbar'
+import { Navbar } from './Navbar'
 import { twMerge } from 'tailwind-merge'
 import clsx from 'clsx'
 import { HeaderState, useStickyHeader } from '@/hooks'
 
-const Header = () => {
+export const Header = () => {
   const headerState = useStickyHeader()
 
   const headerClasses = clsx({
@@ -18,9 +18,7 @@ const Header = () => {
         headerClasses
       )}
     >
-      <NavBar />
+      <Navbar />
     </header>
   )
 }
-
-export default Header

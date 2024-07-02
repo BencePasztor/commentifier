@@ -1,11 +1,11 @@
 import { Button, Error } from '@/components/Form'
 import { useCreateReplyMutation } from '../../api/commentsApi'
-import { CommentInput } from '../CommentInput/CommentInput'
+import { CommentInput } from '../CommentInput'
 import { useZodForm } from '@/hooks'
 import { commentSchema, NewCommentData } from '../..'
 import { SubmitHandler } from 'react-hook-form'
 import { setServerSideErrors } from '@/utils/form'
-import { AuthPrompt } from '../AuthPrompt/AuthPrompt'
+import { AuthPrompt } from '../AuthPrompt'
 import { useAuthState } from '@/features/auth'
 
 interface CreateReplyFormProps {

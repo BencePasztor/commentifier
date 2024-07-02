@@ -1,0 +1,1 @@
+export { InfinitePosts } from './InfinitePosts'

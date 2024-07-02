@@ -1,8 +1,8 @@
-import PostHeader from './PostHeader/PostHeader'
+import PostHeader from './PostHeader'
 import type { Post } from '../../types'
 import { InfiniteComments, CreateCommentForm } from '@/features/comments'
 
-const PostPage = ({
+export const PostPage = ({
   id,
   title,
   description,
@@ -20,5 +20,3 @@ const PostPage = ({
     </>
   )
 }
-
-export default PostPage

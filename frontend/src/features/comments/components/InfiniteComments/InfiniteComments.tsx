@@ -1,4 +1,4 @@
-import { CommentList } from '../CommentList/CommentList'
+import { CommentList } from '../CommentList'
 import { Spinner } from '@/components/Elements'
 import { useIntersectionObserver } from '@/hooks'
 import { useFetchCommentsQuery } from '../../api/commentsApi'

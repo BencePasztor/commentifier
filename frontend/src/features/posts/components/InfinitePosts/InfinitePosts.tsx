@@ -1,4 +1,4 @@
-import { PostsGrid } from '../PostGrid/PostsGrid'
+import { PostsGrid } from '../PostGrid'
 import { Spinner } from '@/components/Elements'
 import type {
   TypedUseQueryHookResult,
@@ -12,7 +12,7 @@ type InfinitePostsProps = {
   setCursor: (cursor: FetchCursor) => void
 } & TypedUseQueryHookResult<FetchPostsResult, unknown, BaseQueryFn>
 
-const InfinitePosts = ({
+export const InfinitePosts = ({
   isSuccess,
   data,
   isError,
@@ -52,5 +52,3 @@ const InfinitePosts = ({
     </>
   )
 }
-
-export default InfinitePosts

@@ -1,5 +1,5 @@
 import { Card, CardTitle } from '@/components/Elements'
-import LoginForm from '../components/LoginForm/LoginForm'
+import { LoginForm } from '../components/LoginForm'
 
 export const Login = () => {
   return (

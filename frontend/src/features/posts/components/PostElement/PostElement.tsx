@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { PassedTime } from '@/components/Elements'
 import { Clock } from 'lucide-react'
 
-const PostElement = ({
+export const PostElement = ({
   title,
   slug,
   imageSource,
@@ -36,7 +36,7 @@ const PostElement = ({
             <SourceLinkButton sourceUrl={sourceUrl}>Source</SourceLinkButton>
             <div className="flex items-center gap-2">
               <PassedTime
-                className="inline-flex gap-1 items-center text-xs"
+                className="inline-flex items-center gap-1 text-xs"
                 dateTime={createdAt}
                 children={<Clock size={14} />}
               />
@@ -48,5 +48,3 @@ const PostElement = ({
     </li>
   )
 }
-
-export default PostElement

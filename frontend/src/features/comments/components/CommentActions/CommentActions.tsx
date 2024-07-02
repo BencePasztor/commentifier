@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import clsx from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { CreateReplyForm } from '../CreateReplyForm/CreateReplyForm'
+import { CreateReplyForm } from '../CreateReplyForm'
 
 interface CommentActionsProps {
   commentId: number

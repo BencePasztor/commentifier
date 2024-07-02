@@ -3,7 +3,7 @@ import { useFetchPostsQuery } from '@/features/posts/api/postsApi'
 import { setPostsCursor } from '../store/postsSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '@/store'
-import InfinitePosts from '../components/InfinitePosts/InfinitePosts'
+import { InfinitePosts } from '../components/InfinitePosts'
 import type { FetchCursor } from '../types'
 
 export const LatestPosts = () => {

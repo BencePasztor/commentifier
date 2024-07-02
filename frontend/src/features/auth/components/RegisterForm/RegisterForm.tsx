@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { setUser } from '../../store/authSlice'
 import { useDispatch } from 'react-redux'
 
-const RegisterForm = () => {
+export const RegisterForm = () => {
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -101,5 +101,3 @@ const RegisterForm = () => {
     </form>
   )
 }
-
-export default RegisterForm

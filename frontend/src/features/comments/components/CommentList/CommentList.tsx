@@ -1,5 +1,5 @@
 import type { Comment } from '../..'
-import { CommentElement } from '../CommentElement/CommentElement'
+import { CommentElement } from '../CommentElement'
 
 interface CommentListProps {
   comments: Comment[]

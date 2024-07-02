@@ -1,5 +1,5 @@
-import PostElement from '@/features/posts/components/PostElement/PostElement'
-import type { Post } from '@/features/posts/types'
+import { PostElement } from '../PostElement'
+import type { Post } from '../../types'
 
 interface PostGridProps {
   posts: Post[]

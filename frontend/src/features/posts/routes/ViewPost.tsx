@@ -1,5 +1,5 @@
 import { Card, Spinner } from '@/components/Elements'
-import PostPage from '../components/PostPage/PostPage'
+import { PostPage } from '../components/PostPage'
 import { useParams } from 'react-router-dom'
 import { useFetchPostBySlugQuery } from '../api/postsApi'
 

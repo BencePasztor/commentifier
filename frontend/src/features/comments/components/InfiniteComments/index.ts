@@ -1,0 +1,1 @@
+export { InfiniteComments } from './InfiniteComments'

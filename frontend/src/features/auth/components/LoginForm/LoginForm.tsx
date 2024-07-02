@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { setUser } from '../../store/authSlice'
 import { useDispatch } from 'react-redux'
 
-const LoginForm = () => {
+export const LoginForm = () => {
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -83,5 +83,3 @@ const LoginForm = () => {
     </form>
   )
 }
-
-export default LoginForm

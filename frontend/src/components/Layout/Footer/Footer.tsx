@@ -1,13 +1,11 @@
 import { getCopyrightYear } from '@/utils/date'
 
-const Footer = () => {
+export const Footer = () => {
   const copyrightYear = getCopyrightYear()
 
   return (
-    <footer className="text-center p-4 text-xs">
+    <footer className="p-4 text-xs text-center">
       <p>Copyright © {copyrightYear} | Commentifier</p>
     </footer>
   )
 }
-
-export default Footer

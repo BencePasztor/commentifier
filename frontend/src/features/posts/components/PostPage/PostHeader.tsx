@@ -1,5 +1,5 @@
-import type { Post } from '@/features/posts/types'
-import SourceLinkButton from '../../PostElement/SourceLinkButton'
+import type { Post } from '../../types'
+import SourceLinkButton from '../PostElement/SourceLinkButton'
 import { PassedTime } from '@/components/Elements'
 import { Clock } from 'lucide-react'
 
@@ -32,7 +32,7 @@ const PostHeader = ({
         <p className="mb-4 text-sm">{description}</p>
         <p className="mb-4">
           <PassedTime
-            className="inline-flex gap-1 items-center text-xs"
+            className="inline-flex items-center gap-1 text-xs"
             dateTime={createdAt}
             children={<Clock size={14} />}
           />

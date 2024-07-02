@@ -1,9 +1,9 @@
 import type { Comment } from '../..'
 import { Avatar } from '@/components/Elements'
-import { Replies } from '../Replies/Replies'
+import { Replies } from '../Replies'
 import clsx from 'clsx'
 import { Reply } from 'lucide-react'
-import { CommentActions } from '../CommentActions/CommentActions'
+import { CommentActions } from '../CommentActions'
 import { PassedTime } from '@/components/Elements'
 
 interface CommentElementProps {
@@ -26,7 +26,7 @@ export const CommentElement = ({ comment, level = 0 }: CommentElementProps) => {
           alt={username}
           fallback={username[0]}
         />
-        <div className="py-2 text-sm flex-grow">
+        <div className="flex-grow py-2 text-sm">
           {/* Username */}
           <span className="block mb-1 font-semibold text-primary-400">
             {username}

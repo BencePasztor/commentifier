@@ -1,5 +1,5 @@
 import { Card, CardTitle } from '@/components/Elements'
-import { NewPostForm } from '../components/NewPostForm/NewPostForm'
+import { NewPostForm } from '../components/NewPostForm'
 
 export const NewPost = () => {
   return (

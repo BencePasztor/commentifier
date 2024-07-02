@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useFetchRepliesQuery } from '../../api/commentsApi'
 import { CirclePlus, LoaderCircle } from 'lucide-react'
-import { CommentList } from '../CommentList/CommentList'
+import { CommentList } from '../CommentList'
 
 interface RepliesProps {
   commentId: number
