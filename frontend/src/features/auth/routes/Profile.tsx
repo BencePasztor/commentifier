@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet'
 
 export const Profile = () => {
+  throw new Error('fuck you asshole!')
   return (
     <>
       <Helmet>
