@@ -8,6 +8,7 @@ import { InfinitePosts } from '../components/InfinitePosts'
 import { useSearchParams } from 'react-router-dom'
 import type { FetchCursor } from '../types'
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet'
 
 export const SearchPosts = () => {
   // The search query is stored in the URL params
@@ -48,9 +49,16 @@ export const SearchPosts = () => {
   }
 
   return (
-    <Card className="w-full xl:rounded-lg xl:container">
-      <SearchForm value={queryParam} handleSubmit={handleSubmit} />
-      <InfinitePosts setCursor={setCursor} {...queryHookResult} />
-    </Card>
+    <>
+      <Helmet>
+        <title>Search Posts</title>
+        <meta property="og:title" content="Search Posts" />
+      </Helmet>
+
+      <Card className="w-full xl:rounded-lg xl:container">
+        <SearchForm value={queryParam} handleSubmit={handleSubmit} />
+        <InfinitePosts setCursor={setCursor} {...queryHookResult} />
+      </Card>
+    </>
   )
 }

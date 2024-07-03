@@ -30,7 +30,7 @@ export const InfiniteComments = ({ postId }: InfiniteCommentsProps) => {
       {isSuccess ? (
         <CommentList
           comments={data.data}
-          fallbackMessage="There are no comments under this post."
+          fallbackMessage="Be the first to comment!"
         />
       ) : null}
       <div className="my-2 text-center">
