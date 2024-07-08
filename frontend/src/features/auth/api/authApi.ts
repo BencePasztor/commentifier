@@ -4,7 +4,9 @@ import type {
   LoginResponse,
   RegisterData,
   RegisterResponse,
-  LogoutResponse
+  LogoutResponse,
+  UpdateProfileResponse,
+  ProfileData
 } from '../types'
 
 const authApi = baseApi.injectEndpoints({
@@ -28,9 +30,20 @@ const authApi = baseApi.injectEndpoints({
         url: 'auth/logout',
         method: 'DELETE'
       })
+    }),
+    updateProfile: build.mutation<UpdateProfileResponse, FormData>({
+      query: (profileData) => ({
+        url: 'users/profile',
+        method: 'PATCH',
+        body: profileData
+      })
     })
   })
 })
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
-  authApi
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useLogoutMutation,
+  useUpdateProfileMutation
+} = authApi

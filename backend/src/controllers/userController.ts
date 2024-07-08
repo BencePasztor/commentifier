@@ -32,7 +32,7 @@ export const updateProfile = async (req: Request, res: Response) => {
   }
 
   // Update Profile
-  await prisma.user.update({
+  const { avatarSource } = await prisma.user.update({
     data: {
       avatar
     },
@@ -41,5 +41,5 @@ export const updateProfile = async (req: Request, res: Response) => {
     }
   })
 
-  res.status(StatusCodes.OK).send({ message: 'Profile changed' })
+  res.status(StatusCodes.OK).send({ avatarSource })
 }

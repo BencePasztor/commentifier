@@ -48,3 +48,41 @@ export type RegisterResponse = {
 export type LogoutResponse = {
   message: string
 }
+
+export const profileSchema = z.object({
+  avatar: z
+    .instanceof(FileList)
+    .transform((fileList, ctx) => {
+      if (fileList.length > 0) {
+        const file = fileList.item(0)
+        if (file !== null) {
+          return file
+        }
+      }
+
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'File not found'
+      })
+
+      return z.NEVER
+    })
+    .refine((file) => {
+      return !file || file.size <= 1024 * 1024 * 5
+    }, 'File size must be less than 5MB')
+    .refine((file) => {
+      return [
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/webp',
+        'image/gif'
+      ].includes(file.type)
+    }, 'Only image types are allowed')
+})
+
+export type ProfileData = z.infer<typeof profileSchema>
+
+export type UpdateProfileResponse = {
+  avatarSource: string
+}

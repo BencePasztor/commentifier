@@ -46,10 +46,27 @@ export const authSlice = createSlice({
         isLoggedIn: false,
         user: null
       } as AuthState
+    },
+    setAvatar: (state, action: PayloadAction<string>) => {
+      if (state.isLoggedIn) {
+        const newState: AuthState = {
+          isLoggedIn: true,
+          user: {
+            id: state.user.id,
+            username: state.user.username,
+            email: state.user.email,
+            avatarSource: action.payload
+          }
+        }
+
+        setAuthStorage(newState)
+
+        return newState
+      }
     }
   }
 })
 
-export const { setUser, clearUser } = authSlice.actions
+export const { setUser, clearUser, setAvatar } = authSlice.actions
 
 export const { reducer: authReducer } = authSlice
