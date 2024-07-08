@@ -1,6 +1,6 @@
 import { Card, CardTitle } from '@/components/Elements'
 import { NewPostForm } from '../components/NewPostForm'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 
 export const NewPost = () => {
   return (

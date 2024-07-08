@@ -2,7 +2,7 @@ import { Card, Spinner } from '@/components/Elements'
 import { PostPage } from '../components/PostPage'
 import { useParams } from 'react-router-dom'
 import { useFetchPostBySlugQuery } from '../api/postsApi'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 
 export const ViewPost = () => {
   const { slug } = useParams()

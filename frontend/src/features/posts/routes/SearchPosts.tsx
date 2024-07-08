@@ -8,7 +8,7 @@ import { InfinitePosts } from '../components/InfinitePosts'
 import { useSearchParams } from 'react-router-dom'
 import type { FetchCursor } from '../types'
 import { useEffect } from 'react'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 
 export const SearchPosts = () => {
   // The search query is stored in the URL params

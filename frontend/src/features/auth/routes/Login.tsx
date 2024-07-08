@@ -1,6 +1,6 @@
 import { Card, CardTitle } from '@/components/Elements'
 import { LoginForm } from '../components/LoginForm'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 
 export const Login = () => {
   return (

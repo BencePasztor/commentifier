@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 import { Card, CardTitle } from '@/components/Elements'
 import { ProfileForm } from '../components/ProfileForm'
 
