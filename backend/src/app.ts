@@ -8,7 +8,8 @@ import {
   jsonMiddleware,
   morganMiddleware,
   publicMiddleware,
-  helmetMiddleware
+  helmetMiddleware,
+  decodeJwtMiddleware
 } from '@/middleware'
 
 const app = express()
@@ -26,6 +27,7 @@ app.get('/', (req, res) => {
 app.use(
   cookieParserMiddleware,
   jsonMiddleware,
+  decodeJwtMiddleware,
   publicMiddleware,
   router,
   notFoundMiddleware,

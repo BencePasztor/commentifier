@@ -1,4 +1,4 @@
-export const COMMENT_FIELDS = {
+export const BASE_COMMENT_FIELDS = {
   id: true,
   content: true,
   postId: true,

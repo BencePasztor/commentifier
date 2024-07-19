@@ -7,8 +7,13 @@ import { setServerSideErrors } from '@/utils/form'
 import { Link, useNavigate } from 'react-router-dom'
 import { setUser } from '../../store/authSlice'
 import { useDispatch } from 'react-redux'
+import type { To } from 'react-router-dom'
 
-export const LoginForm = () => {
+interface LoginFormProps {
+  redirectTo?: To
+}
+
+export const LoginForm = ({ redirectTo }: LoginFormProps) => {
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -32,9 +37,11 @@ export const LoginForm = () => {
         return
       }
 
-      // On success, set the user in store and navigate to the main page
+      // On success, set the user in store and redirect the user if needed
       dispatch(setUser(response.data.data))
-      navigate('/', { replace: true })
+      if (redirectTo) {
+        navigate(redirectTo, { replace: true })
+      }
     } catch (e) {
       setError('root', { type: 'custom', message: 'Unknown error' })
     }

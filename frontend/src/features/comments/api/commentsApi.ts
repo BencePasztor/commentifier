@@ -7,7 +7,9 @@ import type {
   CreateCommentParams,
   CreateCommentResponse,
   CreateReplyParams,
-  CreateReplyResponse
+  CreateReplyResponse,
+  UpvoteResponse,
+  UpvoteParams
 } from '..'
 
 const commentsApi = baseApi.injectEndpoints({
@@ -133,6 +135,64 @@ const commentsApi = baseApi.injectEndpoints({
           console.error(error)
         }
       }
+    }),
+    // Create or delete an upvote for a comment
+    setUpvote: build.mutation<UpvoteResponse, UpvoteParams>({
+      query: ({ commentId, isUpvotedByUser }) => ({
+        url: `/comments/${commentId}/upvotes`,
+        method: isUpvotedByUser ? 'DELETE' : 'POST'
+      }),
+      // Update cached comments without refetching everything
+      async onQueryStarted(
+        { commentId, parentId, postId, isUpvotedByUser },
+        { dispatch, queryFulfilled }
+      ) {
+        // Use optimistic update to increase the upvote count
+        let patchResult
+
+        // If the parentId is null the comment is cached in "fetchComments" if it's not null then it's cached in "fetchReplies"
+        if (parentId === null) {
+          patchResult = dispatch(
+            commentsApi.util.updateQueryData(
+              'fetchComments',
+              { postId, cursor: null },
+              (draft) => {
+                for (const item of draft.data) {
+                  if (item.id === commentId) {
+                    item._count.upvote += isUpvotedByUser ? -1 : 1
+                    item.isUpvotedByUser = !item.isUpvotedByUser
+                    break
+                  }
+                }
+              }
+            )
+          )
+        } else {
+          patchResult = dispatch(
+            commentsApi.util.updateQueryData(
+              'fetchReplies',
+              parentId,
+              (draft) => {
+                for (const item of draft.data) {
+                  if (item.id === commentId) {
+                    item._count.upvote += isUpvotedByUser ? -1 : 1
+                    item.isUpvotedByUser = !item.isUpvotedByUser
+                    break
+                  }
+                }
+              }
+            )
+          )
+        }
+
+        try {
+          await queryFulfilled
+        } catch (error) {
+          // If the query wasn't fulfilled, undo the optimistic change
+          patchResult.undo()
+          console.error(error)
+        }
+      }
     })
   })
 })
@@ -141,5 +201,6 @@ export const {
   useFetchCommentsQuery,
   useFetchRepliesQuery,
   useCreateCommentMutation,
-  useCreateReplyMutation
+  useCreateReplyMutation,
+  useSetUpvoteMutation
 } = commentsApi

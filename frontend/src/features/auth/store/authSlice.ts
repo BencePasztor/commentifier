@@ -17,10 +17,12 @@ export type AuthState =
   | {
       isLoggedIn: false
       user: null
+      showLoginModal: boolean
     }
   | {
       isLoggedIn: true
       user: UserData
+      showLoginModal: boolean
     }
 
 export const authSlice = createSlice({
@@ -30,7 +32,8 @@ export const authSlice = createSlice({
     setUser: (_, action: PayloadAction<UserData>) => {
       const newState: AuthState = {
         isLoggedIn: true,
-        user: action.payload
+        user: action.payload,
+        showLoginModal: false
       }
 
       // Store in local storage
@@ -44,7 +47,8 @@ export const authSlice = createSlice({
 
       return {
         isLoggedIn: false,
-        user: null
+        user: null,
+        showLoginModal: false
       } as AuthState
     },
     setAvatar: (state, action: PayloadAction<string>) => {
@@ -56,17 +60,22 @@ export const authSlice = createSlice({
             username: state.user.username,
             email: state.user.email,
             avatarSource: action.payload
-          }
+          },
+          showLoginModal: false
         }
 
         setAuthStorage(newState)
 
         return newState
       }
+    },
+    setShowLoginModal: (state, action: PayloadAction<boolean>) => {
+      state.showLoginModal = action.payload
     }
   }
 })
 
-export const { setUser, clearUser, setAvatar } = authSlice.actions
+export const { setUser, clearUser, setAvatar, setShowLoginModal } =
+  authSlice.actions
 
 export const { reducer: authReducer } = authSlice

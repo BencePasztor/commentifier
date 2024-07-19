@@ -10,6 +10,6 @@ router.patch(
   authMiddleware,
   multerProfileMiddleware,
   asyncWrapper(updateProfile)
-) // (profile pic modification for now, TODO: add other stuff later)
+)
 
 export default router

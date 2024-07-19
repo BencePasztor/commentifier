@@ -12,9 +12,19 @@ interface CommentElementProps {
 }
 
 export const CommentElement = ({ comment, level = 0 }: CommentElementProps) => {
-  const { id: commentId, content, user, createdAt, _count, parent } = comment
+  const {
+    id: commentId,
+    content,
+    user,
+    createdAt,
+    _count,
+    parent,
+    isUpvotedByUser,
+    parentId,
+    postId
+  } = comment
   const { username, avatarSource } = user
-  const { replies: replyCount /*upvote: upvoteCount*/ } = _count
+  const { replies: replyCount, upvote: upvoteCount } = _count
 
   return (
     <li>
@@ -43,7 +53,13 @@ export const CommentElement = ({ comment, level = 0 }: CommentElementProps) => {
           {/* Content */}
           <p className="my-2">{content}</p>
           {/* Actions */}
-          <CommentActions commentId={commentId} />
+          <CommentActions
+            commentId={commentId}
+            parentId={parentId}
+            postId={postId}
+            upvoteCount={upvoteCount}
+            isUpvotedByUser={isUpvotedByUser}
+          />
         </div>
       </div>
       <div

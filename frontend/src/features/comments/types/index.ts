@@ -20,6 +20,7 @@ export interface Comment {
       username: string
     }
   }
+  isUpvotedByUser: boolean
 }
 
 export interface FetchCommentsResult {
@@ -61,3 +62,14 @@ export const commentSchema = z.object({
 })
 
 export type NewCommentData = z.infer<typeof commentSchema>
+
+export interface UpvoteResponse {
+  message: string
+}
+
+export interface UpvoteParams {
+  commentId: number
+  parentId: number | null
+  postId: number
+  isUpvotedByUser: boolean
+}

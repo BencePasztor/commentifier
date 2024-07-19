@@ -28,7 +28,8 @@ export const getAuthStorage: () => AuthState = () => {
 
   return {
     isLoggedIn: false,
-    user: null
+    user: null,
+    showLoginModal: false
   }
 }
 
@@ -40,7 +41,8 @@ export const clearAuthStorage = () => {
     'auth',
     JSON.stringify({
       isLoggedIn: false,
-      user: null
+      user: null,
+      showLoginModal: false
     })
   )
 }

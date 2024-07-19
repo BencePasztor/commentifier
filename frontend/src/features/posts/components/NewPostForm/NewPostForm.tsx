@@ -5,10 +5,14 @@ import { setServerSideErrors } from '@/utils/form'
 import { SubmitHandler } from 'react-hook-form'
 import { useCreatePostMutation } from '../../api/postsApi'
 import { useNavigate } from 'react-router-dom'
+import { useAuthState } from '@/features/auth'
+import { useLoginModal } from '@/features/auth'
 
 export const NewPostForm = () => {
   const navigate = useNavigate()
   const [createPost, { isLoading }] = useCreatePostMutation()
+  const { isLoggedIn } = useAuthState()
+  const { setShowLoginModal } = useLoginModal()
 
   const {
     register,
@@ -18,6 +22,12 @@ export const NewPostForm = () => {
   } = useZodForm(newPostSchema, { mode: 'onBlur' })
 
   const onSubmit: SubmitHandler<NewPostData> = async (data) => {
+    // If the user is not logged in show the login modal
+    if (!isLoggedIn) {
+      setShowLoginModal(true)
+      return
+    }
+
     try {
       const response = await createPost(data)
 
