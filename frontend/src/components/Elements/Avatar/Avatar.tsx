@@ -23,7 +23,7 @@ export const Avatar = ({
   return (
     <div
       className={twMerge(
-        'size-11 rounded-full overflow-hidden flex items-center justify-center bg-white select-none',
+        'size-11 rounded-full overflow-hidden flex items-center justify-center bg-white select-none flex-shrink-0',
         className
       )}
     >
