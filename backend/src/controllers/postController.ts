@@ -153,8 +153,8 @@ export const searchPosts = async (req: Request, res: Response) => {
     },
     where: {
       OR: [
-        { title: { contains: searchParam } },
-        { description: { contains: searchParam } }
+        { title: { contains: searchParam, mode: 'insensitive' } },
+        { description: { contains: searchParam, mode: 'insensitive' } }
       ]
     },
     take: POSTS_PER_PAGE + 1, // +1 to get the next cursor
