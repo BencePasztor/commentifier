@@ -11,15 +11,6 @@ async function main() {
   // Create Users
   const users: User[] = []
 
-  // Test User
-  await prisma.user.create({
-    data: {
-      email: 'test@test.com',
-      username: 'TestUser',
-      password: await hashPassword('testpassword')
-    }
-  })
-
   // Random Users
   for (let i = 0; i < 30; i++) {
     const user = await prisma.user.create({
